@@ -1,0 +1,34 @@
+{
+    "status": "published",
+    "documentType": "ContractsDForm_vrealm_50251_CONTRACTRegistrodemedidasdeapremioFact",
+    "selectAttributes": [
+        "cus_cmmeid_m01kn",
+        "cus_cmmednombre_m01kn",
+        "cus_cmmeddesclargo_m01kn",
+        "LoadCreateTime",
+        "LoadUpdateTime",
+        "ParentAgreement",
+        "InternalId",
+        "Title",
+        "SourceSystem",
+        "IsTestForm",
+        "AclId",
+        "FlexTypeId",
+        "TimeCreated",
+        "TimeUpdated"
+    ],
+    "filterExpressions": [
+        {
+            "name": "updatedDateTo",
+            "field": "TimeUpdated",
+            "op": "<=",
+            "defaultValue": null
+        },
+        {
+            "name": "updatedDateFrom",
+            "field": "TimeUpdated",
+            "op": ">=",
+            "defaultValue": null
+        }
+    ]
+}

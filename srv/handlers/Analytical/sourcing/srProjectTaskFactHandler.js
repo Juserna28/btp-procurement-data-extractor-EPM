@@ -65,15 +65,15 @@ function insertData(aData, realm)  {
                      let owners = oDataCleansed["AllOwners"];
                      delete oDataCleansed["AllOwners"];
                     
-                     await UPDATE ("sap.ariba.SourcingProjects") .set (oDataCleansed) .where(
-                        { 
+                     await UPDATE ("sap.ariba.SRProjectTasks_AN") .set (oDataCleansed) .where(
+                        {
                             Realm : oDataCleansed.Realm ,
                             TaskId : oDataCleansed.TaskId
                         } );
 
-                     await _FullLoadActiveApprovers(activeApprovers,oDataCleansed.Realm,oDataCleansed.ProjectId);
-                     await _FullLoadObservers(observers,oDataCleansed.Realm,oDataCleansed.ProjectId);
-                     await _FullLoadAllOwners(owners,oDataCleansed.Realm,oDataCleansed.ProjectId);
+                     await _FullLoadActiveApprovers(activeApprovers,oDataCleansed.Realm,oDataCleansed.TaskId);
+                     await _FullLoadObservers(observers,oDataCleansed.Realm,oDataCleansed.TaskId);
+                     await _FullLoadAllOwners(owners,oDataCleansed.Realm,oDataCleansed.TaskId);
                      
                   
                  }

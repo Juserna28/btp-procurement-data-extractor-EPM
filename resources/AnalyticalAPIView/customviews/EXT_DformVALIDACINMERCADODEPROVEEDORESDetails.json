@@ -1,0 +1,48 @@
+{
+    "status": "published",
+    "documentType": "ContractsDFormDetail_vrealm_50251_VALIDACINMERCADODEPROVEEDORESDetailsFact",
+    "selectAttributes": [
+        "cus_DFvmpLText0001_p58et",
+        "cus_DFvmpLText0002_p58et",
+        "cus_DFvmpLText0003_p58et",
+        "cus_DFvmpLText0004_p58et",
+        "cus_DFvmpLText0005_p58et",
+        "cus_DFvmpLText0006_p58et",
+        "cus_DFvmpLText0007_p58et",
+        "cus_DFvmpLLongRichText0001_p58et",
+        "cus_DFvmpLBoolean0001_4756s8",
+        "cus_DFvmpLBoolean0002_4756s8",
+        "cus_DFvmpLBoolean0003_4756s8",
+        "cus_DFvmpLBoolean0004_4756s8",
+        "cus_DFvmpLBoolean0005_4756s8",
+        "cus_DFvmpLFlexMasterDataSS0001_p58et",
+        "cus_DFvmpLFlexMasterDataSS0003_p58et",
+        "cus_DFvmpLFlexMasterDataSS0004_p58et",
+        "cus_DFvmpLFlexMasterDataSS0005_p58et",
+        "cus_DFvmpLFlexMasterDataSS0002_p58et",
+        "LoadCreateTime",
+        "LoadUpdateTime",
+        "ParentAgreement",
+        "DFormId",
+        "DetailLineNumber",
+        "SourceSystem",
+        "AclId",
+        "FlexTypeId",
+        "TimeCreated",
+        "TimeUpdated"
+    ],
+    "filterExpressions": [
+        {
+            "name": "updatedDateTo",
+            "field": "TimeUpdated",
+            "op": "<=",
+            "defaultValue": null
+        },
+        {
+            "name": "updatedDateFrom",
+            "field": "TimeUpdated",
+            "op": ">=",
+            "defaultValue": null
+        }
+    ]
+}

@@ -6,7 +6,7 @@ const utils = require("../../../utils/Utils");
 
 
 //Amount fields in object
-function _getAmountPropertiesForDataCleaning () {
+function _getAmountPropertiesForDataCleaning() {
     return [
         "ActualSavingPct",
         "EstimatedSavingPct",
@@ -17,15 +17,15 @@ function _getAmountPropertiesForDataCleaning () {
     ];
 }
 
-function _getStringPropertiesForTruncating () {
+function _getStringPropertiesForTruncating() {
     return [
         "Title",
         "InternalId"
     ]
 }
 
-function insertData(aData, realm)  {
-    return new Promise(async function(resolve, reject)    {
+function insertData(aData, realm) {
+    return new Promise(async function (resolve, reject) {
 
 
         if (!aData || aData.length === 0) {
@@ -35,33 +35,35 @@ function insertData(aData, realm)  {
         logger.info(`Processing ${aData.length} records`);
         var aCleaningProperties = _getAmountPropertiesForDataCleaning();
         var aTruncatingProperties = _getStringPropertiesForTruncating();
-        let i=0;
-        for(const oData of aData) {
+        let i = 0;
+        for (const oData of aData) {
 
             var oDataCleansed = utils.cleanData(aCleaningProperties, oData, realm);
-            oDataCleansed = utils.processCustomFields(oDataCleansed);
-            oDataCleansed = utils.truncateData(aTruncatingProperties, oData, 4000);
+            oDataCleansed = utils.deduplicateKeys(oDataCleansed);
+            // oDataCleansed = utils.processCustomFields(oDataCleansed);
+            oDataCleansed = utils.truncateData(aTruncatingProperties, oDataCleansed, 4000);
             oDataCleansed = utils.removeNullValues(oDataCleansed);
+
             oDataCleansed = utils.flattenTypes(oDataCleansed);
 
             try {
                 //Select record by Unique key
-                let res =  await SELECT.from ("sap.ariba.SavingsForm_AN").where(
+                let res = await SELECT.from("sap.ariba.SavingsForm_AN").where(
                     {
-                        Realm : oDataCleansed.Realm ,
-                        InternalId : oDataCleansed.InternalId
+                        Realm: oDataCleansed.Realm,
+                        InternalId: oDataCleansed.InternalId
                     });
 
-                if(res.length==0){
-                     //New record, insert
-                    await INSERT .into ("sap.ariba.SavingsForm_AN") .entries (oDataCleansed) ;
+                if (res.length == 0) {
+                    //New record, insert
+                    await INSERT.into("sap.ariba.SavingsForm_AN").entries(oDataCleansed);
 
                 } else {
                     //Update existing record
-                    await UPDATE ("sap.ariba.SavingsForm_AN") .set (oDataCleansed) .where(
+                    await UPDATE("sap.ariba.SavingsForm_AN").set(oDataCleansed).where(
                         {
-                            Realm : oDataCleansed.Realm ,
-                            InternalId : oDataCleansed.InternalId
+                            Realm: oDataCleansed.Realm,
+                            InternalId: oDataCleansed.InternalId
                         });
 
                 }
@@ -74,7 +76,7 @@ function insertData(aData, realm)  {
             }
             //Monitoring
             i++;
-            if(i%500 ==0){
+            if (i % 500 == 0) {
                 logger.info(`Upsert ${i} records`);
             }
 

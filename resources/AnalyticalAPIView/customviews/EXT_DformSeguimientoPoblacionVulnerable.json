@@ -1,0 +1,34 @@
+{
+    "status": "published",
+    "documentType": "ContractsDForm_vrealm_50251_SeguimientoPoblacinVulnerableFact",
+    "selectAttributes": [
+        "cus_DFCantidadMinima_31j8n5",
+        "cus_DFNumerodeEmpleados_31j8n5",
+        "LoadCreateTime",
+        "LoadUpdateTime",
+        "ParentAgreement",
+        "InternalId",
+        "Title",
+        "DocumentVersion",
+        "SourceSystem",
+        "IsTestForm",
+        "AclId",
+        "FlexTypeId",
+        "TimeCreated",
+        "TimeUpdated"
+    ],
+    "filterExpressions": [
+        {
+            "name": "updatedDateTo",
+            "field": "TimeUpdated",
+            "op": "<=",
+            "defaultValue": null
+        },
+        {
+            "name": "updatedDateFrom",
+            "field": "TimeUpdated",
+            "op": ">=",
+            "defaultValue": null
+        }
+    ]
+}

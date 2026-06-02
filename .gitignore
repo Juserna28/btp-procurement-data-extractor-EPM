@@ -6,3 +6,5 @@ default*.json
 package-lock.json
 
 
+# Ignore MTA file
+mta-btp-procurement-data-extractor.mtar

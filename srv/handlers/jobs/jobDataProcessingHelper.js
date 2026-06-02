@@ -26,15 +26,9 @@ const sourcingRequestsFactHandler = require('../Analytical/sourcing/sourcingRequ
 const eventDimHandler = require('../Analytical/sourcing/eventDimHandler');
 const eventTypeDimHandler = require('../Analytical/sourcing/eventTypeDimHandler');
 
-const srProjectHandler = require('../Analytical/sourcing/srProjectHandler');
-const srProjectInfoHandler = require('../Analytical/sourcing/srProjectInfoHandler');
 const srProjectTaskFactHandler = require('../Analytical/sourcing/srProjectTaskFactHandler');
 const srProjectTaskApprovalFlowFactHandler = require('../Analytical/sourcing/srProjectTaskApprovalFlowFactHandler');
 const projectTaskFactHandler = require('../Analytical/sourcing/projectTaskFactHandler');
-const contractLineItemDocumentFactHandler = require('../Analytical/contracts/contractLineItemDocumentFactHandler');
-const generalContractWorkspaceFactHandler = require('../Analytical/contracts/generalContractWorkspaceFactHandler');
-const salesContractWorkspaceFactHandler = require('../Analytical/contracts/salesContractWorkspaceFactHandler');
-const collaborationRequestFactHandler = require('../Analytical/requisitions/collaborationRequestFactHandler');
 
 const receiptsFactHandler = require('../Analytical/receipt/receiptsFactHandler');
 const receiptsOSHandler = require('../Operational/receipts/receiptsOSHandler');
@@ -55,7 +49,6 @@ const supplierRegistrationProjectsFactHandler = require('../Analytical/suppliers
 const supplierRequestProjectsFactHandler = require('../Analytical/suppliers/supplierRequestProjectsFactHandler');
 const spmProjectsFactHandler = require('../Analytical/suppliers/spmProjectsFactHandler');
 const smProjectsFactHandler = require('../Analytical/suppliers/smProjectsFactHandler');
-const smProjectInfoHandler = require('../Analytical/suppliers/smProjectInfoHandler');
 const smProjectQuestionnaireResponsesFactHandler = require('../Analytical/suppliers/smProjectQuestionnaireResponsesFactHandler');
 const surveyResponseFactHandler = require('../Analytical/suppliers/surveyResponseFactHandler');
 const scorecardFactHandler = require('../Analytical/suppliers/scorecardFactHandler');
@@ -75,13 +68,11 @@ const savingsAllocationDetailsFactHandler = require('../Analytical/sourcing/savi
 const savingsFormFactHandler = require('../Analytical/sourcing/savingsFormFactHandler');
 
 const userDataDimHandler = require('../Analytical/general/userDataDimHandler');
-const userAbilityHandler = require('../Analytical/general/userAbilityHandler');
 const costCenterDimHandler = require('../Analytical/general/costCenterDimHandler');
 const companyCodeDimHandler = require('../Analytical/general/companyCodeDimHandler');
 
 const projectsFactHandler = require('../Analytical/sourcing/projectsFactHandler');
 const projectInfoFactHandler = require('../Analytical/sourcing/projectInfoFactHandler');
-const documentFactHandler = require('../Analytical/sourcing/documentFactHandler');
 const servicesProcurementWorkspacesFactHandler = require('../Analytical/procurement/servicesProcurementWorkspacesFactHandler');
 
 //Operational Data Handlers
@@ -111,13 +102,42 @@ const contractWorkspaceOSHandler = require('../Operational/contracts/contractWor
 const auditEntryHandler = require('../Operational/sourcing/auditEntryHandler');
 
 
-async function ProcessData(viewTemplateName,Records,realm){
+//Custom Views
+const projectTaskNameDimHandler = require('../Analytical/customviews/projectTasknameDimHandler');
+const dformCondicionesparaElaborarlaSolicituddeOfertaHandler = require('../Analytical/customviews/dformCondicionesparaElaborarlaSolicituddeOfertaHandler');
+const dformCondicionesparaElaborarlaSolicituddeOfertaDetailsHandler = require('../Analytical/customviews/dformCondicionesparaElaborarlaSolicituddeOfertaDetailsHandler');
+const dformCONDICIONESPARAELABORARSOLICITUDDEOFERTAV2Handler = require('../Analytical/customviews/dformCONDICIONESPARAELABORARSOLICITUDDEOFERTAV2Handler');
+const dformCONDICIONESPARAELABORARSOLICITUDDEOFERTAV2DetailsHandler = require('../Analytical/customviews/dformCONDICIONESPARAELABORARSOLICITUDDEOFERTAV2DetailsHandler');
+const dformDocumentosTransaccionalesHandler = require('../Analytical/customviews/dformDocumentosTransaccionalesHandler');
+const dformDocumentosTransaccionalesDetailsHandler = require('../Analytical/customviews/dformDocumentosTransaccionalesDetailsHandler');
+const dformFichadeaceptacindelcontratoHandler = require('../Analytical/customviews/dformFichadeaceptacindelcontratoHandler');
+const dformFichadeaceptacindelcontratoDetailsHandler = require('../Analytical/customviews/dformFichadeaceptacindelcontratoDetailsHandler');
+const dformFICHAPROCESODECONTRATACINHandler = require('../Analytical/customviews/dformFICHAPROCESODECONTRATACINHandler');
+const dformFICHAPROCESODECONTRATACINDetailsHandler = require('../Analytical/customviews/dformFICHAPROCESODECONTRATACINDetailsHandler');
+const dformFormulariodeInformacinFinancieraHandler = require('../Analytical/customviews/dformFormulariodeInformacinFinancieraHandler');
+const dformFormulariodeInformacinFinancieraDetailsHandler = require('../Analytical/customviews/dformFormulariodeInformacinFinancieraDetailsHandler');
+const dformHomologacinProveedoresHandler = require('../Analytical/customviews/dformHomologacinProveedoresHandler');
+const dformHomologacinProveedoresDetailsHandler = require('../Analytical/customviews/dformHomologacinProveedoresDetailsHandler');
+const dformMonedasmodificacionesHandler = require('../Analytical/customviews/dformMonedasmodificacionesHandler');
+const dformMonedasmodificacionesDetailsHandler = require('../Analytical/customviews/dformMonedasmodificacionesDetailsHandler');
+const dformRegistrodemedidasdeapremioHandler = require('../Analytical/customviews/dformRegistrodemedidasdeapremioHandler');
+const dformRegistrodemedidasdeapremioDetailsHandler = require('../Analytical/customviews/dformRegistrodemedidasdeapremioDetailsHandler');
+const dformSeguimientoPoblacionVulnerableHandler = require('../Analytical/customviews/dformSeguimientoPoblacionVulnerableHandler');
+const dformSeguimientoPoblacinVulnerableDetailsHandler = require('../Analytical/customviews/dformSeguimientoPoblacinVulnerableDetailsHandler');
+const dformSIPMRegistrodeExperienciaHandler = require('../Analytical/customviews/dformSIPMRegistrodeExperienciaHandler');
+const dformSIPMRegistrodeExperienciaDetailsHandler = require('../Analytical/customviews/dformSIPMRegistrodeExperienciaDetailsHandler');
+const dformSIPMResultadosdelPlandeDesarrollodeProveedorHandler = require('../Analytical/customviews/dformSIPMResultadosdelPlandeDesarrollodeProveedorHandler');
+const dformVALIDACINMERCADODEPROVEEDORESHandler = require('../Analytical/customviews/dformVALIDACINMERCADODEPROVEEDORESHandler');
+const dformVALIDACINMERCADODEPROVEEDORESDetailsHandler = require('../Analytical/customviews/dformVALIDACINMERCADODEPROVEEDORESDetailsHandler');
+
+
+async function ProcessData(viewTemplateName, Records, realm) {
     //Routes the extracted data to the appropriate processing handler
-    return new Promise(async (resolve,reject)=>{
-        try{
+    return new Promise(async (resolve, reject) => {
+        try {
 
             let affectedRows;
-            switch(viewTemplateName){
+            switch (viewTemplateName) {
                 //Analytical API
                 case "EXT_InvoiceLineItemSA":
                     affectedRows = await invoiceLineItemsSAHandler.insertData(Records, realm)
@@ -154,18 +174,13 @@ async function ProcessData(viewTemplateName,Records,realm){
                     break;
                 case "EXT_AdvancePayment":
                     affectedRows = await advancePaymentFactHanlder.insertData(Records, realm)
-                    break;   
+                    break;
                 case "EXT_Payment":
                     affectedRows = await paymentsFactHandler.insertData(Records, realm)
-                    break;                                       
+                    break;
                 case "EXT_RequisitionLineItem":
                     affectedRows = await requisitionLineItemsFactHandler.insertData(Records, realm)
                     break;
-                
-                case "EXT_CollaborationRequest":
-                    affectedRows = await collaborationRequestFactHandler.insertData(Records, realm)
-                    break;
-
                 case "EXT_ContractLineItem":
                     affectedRows = await contractLineItemsFactHandler.insertData(Records, realm)
                     break;
@@ -181,7 +196,7 @@ async function ProcessData(viewTemplateName,Records,realm){
                 case "EXT_ContractWorkspace":
                     affectedRows = await contractWorkspacesFactHandler.insertData(Records, realm)
                     break;
-                 case "EXT_SourcingProject":
+                case "EXT_SourcingProject":
                     affectedRows = await sourcingProjectsFactHandler.insertData(Records, realm)
                     break;
                 case "EXT_SupplierParticipation":
@@ -220,9 +235,6 @@ async function ProcessData(viewTemplateName,Records,realm){
                 case "EXT_SMProjects":
                     affectedRows = await smProjectsFactHandler.insertData(Records, realm)
                     break;
-                case "EXT_SMProjectInfo":
-                    affectedRows = await smProjectInfoHandler.insertData(Records, realm)
-                    break;
                 case "EXT_Approval":
                     affectedRows = await approvalsFactHandler.insertData(Records, realm)
                     break;
@@ -250,12 +262,6 @@ async function ProcessData(viewTemplateName,Records,realm){
                 case "EXT_SRProjectTaskApprovalFlow":
                     affectedRows = await srProjectTaskApprovalFlowFactHandler.insertData(Records, realm)
                     break;
-                case "EXT_SRProject":
-                    affectedRows = await srProjectHandler.insertData(Records, realm)
-                    break;
-                case "EXT_SRProjectInfo":
-                    affectedRows = await srProjectInfoHandler.insertData(Records, realm)
-                    break;
                 case "EXT_ProjectTask":
                     affectedRows = await projectTaskFactHandler.insertData(Records, realm)
                     break;
@@ -264,9 +270,6 @@ async function ProcessData(viewTemplateName,Records,realm){
                     break;
                 case "EXT_ProjectInfo":
                     affectedRows = await projectInfoFactHandler.insertData(Records, realm)
-                    break;
-                case "EXT_Document":
-                    affectedRows = await documentFactHandler.insertData(Records, realm)
                     break;
                 case "EXT_ServicesProcurementWorkspaces":
                     affectedRows = await servicesProcurementWorkspacesFactHandler.insertData(Records, realm)
@@ -280,19 +283,6 @@ async function ProcessData(viewTemplateName,Records,realm){
                 case "EXT_ContractItem":
                     affectedRows = await contractItemFactHandler.insertData(Records, realm)
                     break;
-
-                case "EXT_ContractLineItemDocument":
-                    affectedRows = await contractLineItemDocumentFactHandler.insertData(Records, realm)
-                    break;
-
-                case "EXT_GeneralContractWorkspace":
-                    affectedRows = await generalContractWorkspaceFactHandler.insertData(Records, realm)
-                    break;
-
-                case "EXT_SalesContractWorkspace":
-                    affectedRows = await salesContractWorkspaceFactHandler.insertData(Records, realm)
-                    break;
-
                 case "EXT_SMSurveyTemplateQuestionDim":
                     affectedRows = await smSurveyTemplateQuestionDimHandler.insertData(Records, realm)
                     break;
@@ -318,22 +308,19 @@ async function ProcessData(viewTemplateName,Records,realm){
                     affectedRows = await savingsFormFactHandler.insertData(Records, realm)
                     break;
                 case "EXT_InvoiceExceptionType":
-                        affectedRows = await invoiceExceptionTypeDimHandler.insertData(Records, realm)
-                        break;
+                    affectedRows = await invoiceExceptionTypeDimHandler.insertData(Records, realm)
+                    break;
                 case "EXT_EventType":
-                        affectedRows = await eventTypeDimHandler.insertData(Records, realm)
-                        break;
+                    affectedRows = await eventTypeDimHandler.insertData(Records, realm)
+                    break;
                 case "EXT_CostCenter":
-                        affectedRows = await costCenterDimHandler.insertData(Records, realm)
-                        break;
+                    affectedRows = await costCenterDimHandler.insertData(Records, realm)
+                    break;
                 case "EXT_CompanyCode":
-                        affectedRows = await companyCodeDimHandler.insertData(Records, realm)
-                        break;                
+                    affectedRows = await companyCodeDimHandler.insertData(Records, realm)
+                    break;
                 case "EXT_UserData":
                     affectedRows = await userDataDimHandler.insertData(Records, realm)
-                    break;
-                case "EXT_UserAbility":
-                    affectedRows = await userAbilityHandler.insertData(Records, realm)
                     break;
                 //Operational Reporting Procurement API
                 case "EXT_OP_Requisition":
@@ -364,28 +351,28 @@ async function ProcessData(viewTemplateName,Records,realm){
                     break;
                 case "EXT_OS_Alternative":
                     affectedRows = await rfxAlternativeHandler.insertData(Records, realm);
-                    break;                  
+                    break;
                 case "EXT_OS_Task":
                     affectedRows = await taskHandler.insertData(Records, realm);
-                    break;       
+                    break;
                 case "EXT_OS_ItemSupplierData":
                     affectedRows = await itemSupplierDataHandler.insertData(Records, realm);
-                    break;             
+                    break;
                 case "EXT_OS_Scenario":
                     affectedRows = await scenarioHandler.insertData(Records, realm);
-                    break;                
+                    break;
                 case "EXT_OS_SourcingRequest":
                     affectedRows = await sourcingRequestOSHandler.insertData(Records, realm);
-                    break;                
+                    break;
                 case "EXT_OS_SourcingProject":
                     affectedRows = await sourcingProjectOSHandler.insertData(Records, realm);
-                    break;                
+                    break;
                 case "EXT_OS_DocumentTask":
                     affectedRows = await documentTaskHandler.insertData(Records, realm);
-                    break;                 
+                    break;
                 case "EXT_OS_Organization":
                     affectedRows = await organizationHandler.insertData(Records, realm);
-                    break;    
+                    break;
                 case "EXT_OS_ContractWorkspace":
                     affectedRows = await contractWorkspaceOSHandler.insertData(Records, realm);
                     break;
@@ -401,13 +388,90 @@ async function ProcessData(viewTemplateName,Records,realm){
                 case "EXT_OP_Receipt":
                     affectedRows = await receiptsOSHandler.insertData(Records, realm);
                     break;
-
+                case "EXT_DformCondicionesparaElaborarlaSolicituddeOferta":
+                    affectedRows = await dformCondicionesparaElaborarlaSolicituddeOfertaHandler.insertData(Records, realm);
+                    break;
+                case "EXT_DformCondicionesparaElaborarlaSolicituddeOfertaDetails":
+                    affectedRows = await dformCondicionesparaElaborarlaSolicituddeOfertaDetailsHandler.insertData(Records, realm);
+                    break;
+                case "EXT_DformCONDICIONESPARAELABORARSOLICITUDDEOFERTAV2":
+                    affectedRows = await dformCONDICIONESPARAELABORARSOLICITUDDEOFERTAV2Handler.insertData(Records, realm);
+                    break;
+                case "EXT_DformCONDICIONESPARAELABORARSOLICITUDDEOFERTAV2Details":
+                    affectedRows = await dformCONDICIONESPARAELABORARSOLICITUDDEOFERTAV2DetailsHandler.insertData(Records, realm);
+                    break;
+                case "EXT_DformDocumentosTransaccionales":
+                    affectedRows = await dformDocumentosTransaccionalesHandler.insertData(Records, realm);
+                    break;
+                case "EXT_DformDocumentosTransaccionalesDetails":
+                    affectedRows = await dformDocumentosTransaccionalesDetailsHandler.insertData(Records, realm);
+                    break;
+                case "EXT_DformFichadeaceptacindelcontrato":
+                    affectedRows = await dformFichadeaceptacindelcontratoHandler.insertData(Records, realm);
+                    break;
+                case "EXT_DformFichadeaceptacindelcontratoDetails":
+                    affectedRows = await dformFichadeaceptacindelcontratoDetailsHandler.insertData(Records, realm);
+                    break;
+                case "EXT_DformFICHAPROCESODECONTRATACIN":
+                    affectedRows = await dformFICHAPROCESODECONTRATACINHandler.insertData(Records, realm);
+                    break;
+                case "EXT_DformFICHAPROCESODECONTRATACINDetails":
+                    affectedRows = await dformFICHAPROCESODECONTRATACINDetailsHandler.insertData(Records, realm);
+                    break;
+                case "EXT_DformFormulariodeInformacinFinanciera":
+                    affectedRows = await dformFormulariodeInformacinFinancieraHandler.insertData(Records, realm);
+                    break;
+                case "EXT_DformFormulariodeInformacinFinancieraDetails":
+                    affectedRows = await dformFormulariodeInformacinFinancieraDetailsHandler.insertData(Records, realm);
+                    break;
+                case "EXT_DformHomologacinProveedores":
+                    affectedRows = await dformHomologacinProveedoresHandler.insertData(Records, realm);
+                    break;
+                case "EXT_DformHomologacinProveedoresDetails":
+                    affectedRows = await dformHomologacinProveedoresDetailsHandler.insertData(Records, realm);
+                    break;
+                case "EXT_DformMonedasmodificaciones":
+                    affectedRows = await dformMonedasmodificacionesHandler.insertData(Records, realm);
+                    break;
+                case "EXT_DformMonedasmodificacionesDetails":
+                    affectedRows = await dformMonedasmodificacionesDetailsHandler.insertData(Records, realm);
+                    break;
+                case "EXT_DformRegistrodemedidasdeapremio":
+                    affectedRows = await dformRegistrodemedidasdeapremioHandler.insertData(Records, realm);
+                    break;
+                case "EXT_DformRegistrodemedidasdeapremioDetails":
+                    affectedRows = await dformRegistrodemedidasdeapremioDetailsHandler.insertData(Records, realm);
+                    break;
+                case "EXT_DformSeguimientoPoblacionVulnerable":
+                    affectedRows = await dformSeguimientoPoblacionVulnerableHandler.insertData(Records, realm);
+                    break;
+                case "EXT_DformSeguimientoPoblacinVulnerableDetails":
+                    affectedRows = await dformSeguimientoPoblacinVulnerableDetailsHandler.insertData(Records, realm);
+                    break;
+                case "EXT_DformSIPMRegistrodeExperiencia":
+                    affectedRows = await dformSIPMRegistrodeExperienciaHandler.insertData(Records, realm);
+                    break;
+                case "EXT_DformSIPMRegistrodeExperienciaDetails":
+                    affectedRows = await dformSIPMRegistrodeExperienciaDetailsHandler.insertData(Records, realm);
+                    break;
+                case "EXT_DformSIPMResultadosdelPlandeDesarrollodeProveedor":
+                    affectedRows = await dformSIPMResultadosdelPlandeDesarrollodeProveedorHandler.insertData(Records, realm);
+                    break;
+                case "EXT_DformVALIDACINMERCADODEPROVEEDORES":
+                    affectedRows = await dformVALIDACINMERCADODEPROVEEDORESHandler.insertData(Records, realm);
+                    break;
+                case "EXT_DformVALIDACINMERCADODEPROVEEDORESDetails":
+                    affectedRows = await dformVALIDACINMERCADODEPROVEEDORESDetailsHandler.insertData(Records, realm);
+                    break;
+                case "EXT_ProjectTasknameDim":
+                    affectedRows = await projectTaskNameDimHandler.insertData(Records, realm);
+                    break;
                 default:
                     logger.warn(`No handler for template ${viewTemplateName} data processing skipped.`);
             }
             resolve(affectedRows);
 
-        } catch(e) {
+        } catch (e) {
             logger.error(`Error while processing data for ${viewTemplateName} for realm: ${realm} details: ${e}`);
             reject(e);
         }

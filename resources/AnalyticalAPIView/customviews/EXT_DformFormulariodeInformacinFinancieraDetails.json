@@ -1,0 +1,39 @@
+{
+    "status": "published",
+    "documentType": "ContractsDFormDetail_vrealm_50251_FormulariodeInformacinFinancieraDetailsFact",
+    "selectAttributes": [
+        "cus_Activocorriente2_p58et",
+        "cus_Pasivocorriente2_p58et",
+        "cus_Activototal2_p58et",
+        "cus_Pasivototal2_p58et",
+        "cus_CapitaldeTrabajoNeto3_p58et",
+        "cus_Monedainformacionfinanciera_p58et",
+        "cus_Fechacierrefiscal_36k5ok",
+        "cus_IndicedeliquidezReport_22xqcb",
+        "cus_IndicedeendeudamientoReport_22xqcb",
+        "cus_CapitaldeTrabajoNetoReport_22xqcb",
+        "LoadUpdateTime",
+        "LoadCreateTime",
+        "ParentAgreement",
+        "DFormId",
+        "DetailLineNumber",
+        "FlexTypeId",
+        "TimeCreated",
+        "TimeUpdated",
+        "SourceSystem"
+    ],
+    "filterExpressions": [
+        {
+            "name": "updatedDateTo",
+            "field": "TimeUpdated",
+            "op": "<=",
+            "defaultValue": null
+        },
+        {
+            "name": "updatedDateFrom",
+            "field": "TimeUpdated",
+            "op": ">=",
+            "defaultValue": null
+        }
+    ]
+}

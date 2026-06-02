@@ -1,0 +1,39 @@
+{
+    "status": "published",
+    "documentType": "ContractsDFormDetail_vrealm_50251_CONTRACTFichadeaceptacindelcontratoDetailsFact",
+    "selectAttributes": [
+        "cus_customerResourcesdfFACMonAceptLabel_p58et",
+        "cus_customerResourcesdfFACValorMonAcepLa_S6_22xqcb",
+        "cus_customerResourcesdfFACValorMonAcepLa_S3_22xqcb",
+        "cus_customerResourcesdfFACValorMonAcepLa_22xqcb",
+        "cus_customerResourcesdfFACValorMonAcepLa_S4_22xqcb",
+        "cus_customerResourcesdfFACValorMonAcepLa_S1_22xqcb",
+        "cus_customerResourcesdfFACValorMonAcepLa_S2_22xqcb",
+        "cus_customerResourcesdfFACValorMonAcepLa_p58et",
+        "cus_Tasadecambioamonedalocal_22xqcb",
+        "LoadCreateTime",
+        "LoadUpdateTime",
+        "ParentAgreement",
+        "DFormId",
+        "DetailLineNumber",
+        "SourceSystem",
+        "AclId",
+        "FlexTypeId",
+        "TimeCreated",
+        "TimeUpdated"
+    ],
+    "filterExpressions": [
+        {
+            "name": "updatedDateTo",
+            "field": "TimeUpdated",
+            "op": "<=",
+            "defaultValue": null
+        },
+        {
+            "name": "updatedDateFrom",
+            "field": "TimeUpdated",
+            "op": ">=",
+            "defaultValue": null
+        }
+    ]
+}

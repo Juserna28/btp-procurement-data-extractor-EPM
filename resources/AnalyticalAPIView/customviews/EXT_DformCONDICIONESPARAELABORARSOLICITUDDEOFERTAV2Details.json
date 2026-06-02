@@ -1,0 +1,34 @@
+{
+    "status": "published",
+    "documentType": "ContractsDFormDetail_vrealm_50251_CONDICIONESPARAELABORARSOLICITUDDEOFERTAV2DetailsFact",
+    "selectAttributes": [
+        "cus_dfAnos_34ofhb",
+        "cus_dfcargo_p58et",
+        "cus_dftitulo_p58et",
+        "cus_dfexperiencia_p58et",
+        "LoadCreateTime",
+        "LoadUpdateTime",
+        "ParentAgreement",
+        "DFormId",
+        "DetailLineNumber",
+        "SourceSystem",
+        "AclId",
+        "FlexTypeId",
+        "TimeCreated",
+        "TimeUpdated"
+    ],
+    "filterExpressions": [
+        {
+            "name": "updatedDateTo",
+            "field": "TimeUpdated",
+            "op": "<=",
+            "defaultValue": null
+        },
+        {
+            "name": "updatedDateFrom",
+            "field": "TimeUpdated",
+            "op": ">=",
+            "defaultValue": null
+        }
+    ]
+}

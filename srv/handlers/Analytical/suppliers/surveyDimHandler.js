@@ -6,21 +6,21 @@ const utils = require("../../../utils/Utils");
 
 
 //Amount fields in object
-function _getAmountPropertiesForDataCleaning () {
-    return [  "AclId"];
+function _getAmountPropertiesForDataCleaning() {
+    return ["AclId"];
 }
 
-function _negativeValueCleansing (aCleaningProperties,oData) {
+function _negativeValueCleansing(aCleaningProperties, oData) {
 
     aCleaningProperties && aCleaningProperties.forEach(function (oCleaningProperty) {
-        oData[oCleaningProperty] = oData[oCleaningProperty] && oData[oCleaningProperty]<0?0:oData[oCleaningProperty];
+        oData[oCleaningProperty] = oData[oCleaningProperty] && oData[oCleaningProperty] < 0 ? 0 : oData[oCleaningProperty];
     });
 
     return oData;
 }
 
-function insertData(aData, realm)  {
-    return new Promise(async function(resolve, reject)    {
+function insertData(aData, realm) {
+    return new Promise(async function (resolve, reject) {
 
 
         if (!aData || aData.length === 0) {
@@ -29,34 +29,34 @@ function insertData(aData, realm)  {
         }
         logger.info(`Processing ${aData.length} records`);
         var aCleaningProperties = _getAmountPropertiesForDataCleaning();
-        let i=0;
-        for(const oData of aData) {
+        let i = 0;
+        for (const oData of aData) {
 
             var oDataCleansed = utils.cleanData(aCleaningProperties, oData, realm);
-            oDataCleansed = _negativeValueCleansing(aCleaningProperties,oDataCleansed);
+            oDataCleansed = _negativeValueCleansing(aCleaningProperties, oDataCleansed);
             oDataCleansed = utils.flattenTypes(oDataCleansed);
 
             try {
                 //Select record by Unique key
-                let res =  await SELECT.from ("sap.ariba.Survey_AN").where(
+                let res = await SELECT.from("sap.ariba.Survey_AN").where(
                     {
-                        Realm : oDataCleansed.Realm ,
-                        SurveyId : oDataCleansed.SurveyId
-                    }  );
+                        Realm: oDataCleansed.Realm,
+                        SurveyId: oDataCleansed.SurveyId
+                    });
 
-                 if(res.length==0){
-                     //New record, insert
-                    await INSERT .into ("sap.ariba.Survey_AN") .entries (oDataCleansed) ;
+                if (res.length == 0) {
+                    //New record, insert
+                    await INSERT.into("sap.ariba.Survey_AN").entries(oDataCleansed);
 
-                 }else{
-                     //Update existing record
-                    await UPDATE ("sap.ariba.Survey_AN") .set (oDataCleansed) .where(
+                } else {
+                    //Update existing record
+                    await UPDATE("sap.ariba.Survey_AN").set(oDataCleansed).where(
                         {
-                            Realm : oDataCleansed.Realm ,
-                            SurveyId : oDataCleansed.SurveyId
-                        } );
+                            Realm: oDataCleansed.Realm,
+                            SurveyId: oDataCleansed.SurveyId
+                        });
 
-                 }
+                }
 
             } catch (e) {
                 logger.error(`Error on inserting data in database, aborting file processing, details ${e} `);
@@ -66,7 +66,7 @@ function insertData(aData, realm)  {
             }
             //Monitoring
             i++;
-            if(i%500 ==0){
+            if (i % 500 == 0) {
                 logger.info(`Upsert ${i} records`);
             }
 

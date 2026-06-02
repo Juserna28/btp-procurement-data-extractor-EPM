@@ -745,6 +745,20 @@
         ]
       },
       {
+        "name": "SAP_ARIBA_CONTRACTREQUESTS_TIPOCONTRATO_AN",
+        "type": "TABLE",
+        "privileges": [
+          "SELECT"
+        ]
+      },
+      {
+        "name": "SAP_ARIBA_CONTRACTREQUESTS_PROYECTOYOPROCESO_AN",
+        "type": "TABLE",
+        "privileges": [
+          "SELECT"
+        ]
+      },
+      {
         "name": "SAP_ARIBA_CONTRACTSDIM_AN",
         "type": "TABLE",
         "privileges": [
@@ -801,7 +815,469 @@
         ]
       },
       {
+        "name": "SAP_ARIBA_CONTRACTWORKSPACES_TIPOCONTRATO_AN",
+        "type": "TABLE",
+        "privileges": [
+          "SELECT"
+        ]
+      },
+      {
+        "name": "SAP_ARIBA_CONTRACTWORKSPACES_PROYECTOYOPROCESO_AN",
+        "type": "TABLE",
+        "privileges": [
+          "SELECT"
+        ]
+      },
+      {
         "name": "SAP_ARIBA_COSTCENTER_AN",
+        "type": "TABLE",
+        "privileges": [
+          "SELECT"
+        ]
+      },
+      {
+        "name": "SAP_ARIBA_DFORMCONDICIONESPARAELABORARLASOLICITUDDEOFERTADETAILS_AN",
+        "type": "TABLE",
+        "privileges": [
+          "SELECT"
+        ]
+      },
+      {
+        "name": "SAP_ARIBA_DFORMCONDICIONESPARAELABORARLASOLICITUDDEOFERTA_AN",
+        "type": "TABLE",
+        "privileges": [
+          "SELECT"
+        ]
+      },
+      {
+        "name": "SAP_ARIBA_DFORMCONDICIONESPARAELABORARLASOLICITUDDEOFERTA_CUS_CUSTOMERRESOURCESCERTIFICADOSAPLICAB_2NA5V9_AN",
+        "type": "TABLE",
+        "privileges": [
+          "SELECT"
+        ]
+      },
+      {
+        "name": "SAP_ARIBA_DFORMCONDICIONESPARAELABORARLASOLICITUDDEOFERTA_CUS_CUSTOMERRESOURCESENFOQUECOMERCIALLAB_KC0VU_AN",
+        "type": "TABLE",
+        "privileges": [
+          "SELECT"
+        ]
+      },
+      {
+        "name": "SAP_ARIBA_DFORMCONDICIONESPARAELABORARLASOLICITUDDEOFERTA_CUS_CUSTOMERRESOURCESESTRATEGIANEGOCIACI_4D84AB_AN",
+        "type": "TABLE",
+        "privileges": [
+          "SELECT"
+        ]
+      },
+      {
+        "name": "SAP_ARIBA_DFORMCONDICIONESPARAELABORARLASOLICITUDDEOFERTA_CUS_CUSTOMERRESOURCESFOCONEGOCIACIONABAS_30ACFM_AN",
+        "type": "TABLE",
+        "privileges": [
+          "SELECT"
+        ]
+      },
+      {
+        "name": "SAP_ARIBA_DFORMCONDICIONESPARAELABORARLASOLICITUDDEOFERTA_CUS_CUSTOMERRESOURCESFOCONEGOCIACIONCONS_XC7G7_AN",
+        "type": "TABLE",
+        "privileges": [
+          "SELECT"
+        ]
+      },
+      {
+        "name": "SAP_ARIBA_DFORMCONDICIONESPARAELABORARLASOLICITUDDEOFERTA_CUS_CUSTOMERRESOURCESFOCONEGOCIACIONMEJO_20D1T2_AN",
+        "type": "TABLE",
+        "privileges": [
+          "SELECT"
+        ]
+      },
+      {
+        "name": "SAP_ARIBA_DFORMCONDICIONESPARAELABORARLASOLICITUDDEOFERTA_CUS_CUSTOMERRESOURCESFOCONEGOCIACIONREDI_2A9ZAW_AN",
+        "type": "TABLE",
+        "privileges": [
+          "SELECT"
+        ]
+      },
+      {
+        "name": "SAP_ARIBA_DFORMCONDICIONESPARAELABORARLASOLICITUDDEOFERTA_CUS_CUSTOMERRESOURCESFOCONEGOCIACIONRELA_3QB084_AN",
+        "type": "TABLE",
+        "privileges": [
+          "SELECT"
+        ]
+      },
+      {
+        "name": "SAP_ARIBA_DFORMCONDICIONESPARAELABORARLASOLICITUDDEOFERTA_CUS_CUSTOMERRESOURCESINDIQUECERTIFICADOS_1ACE0K_AN",
+        "type": "TABLE",
+        "privileges": [
+          "SELECT"
+        ]
+      },
+      {
+        "name": "SAP_ARIBA_DFORMCONDICIONESPARAELABORARLASOLICITUDDEOFERTA_CUS_CUSTOMERRESOURCESPERSONASAINVITARLAB_FMU1V_AN",
+        "type": "TABLE",
+        "privileges": [
+          "SELECT"
+        ]
+      },
+      {
+        "name": "SAP_ARIBA_DFORMCONDICIONESPARAELABORARLASOLICITUDDEOFERTA_CUS_CUSTOMERRESOURCESTIPOCONTRATOLABEL_NF9YD_AN",
+        "type": "TABLE",
+        "privileges": [
+          "SELECT"
+        ]
+      },
+      {
+        "name": "SAP_ARIBA_DFORMCONDICIONESPARAELABORARLASOLICITUDDEOFERTA_CUS_CUSTOMERRESOURCESTIPOPARTICIPANTESLA_407XPY_AN",
+        "type": "TABLE",
+        "privileges": [
+          "SELECT"
+        ]
+      },
+      {
+        "name": "SAP_ARIBA_DFORMCONDICIONESPARAELABORARLASOLICITUDDEOFERTA_CUS_INDIQUEELTIPODEEXPERIENCIAASOLICITAR_3N7R5L_AN",
+        "type": "TABLE",
+        "privileges": [
+          "SELECT"
+        ]
+      },
+      {
+        "name": "SAP_ARIBA_DFORMCONDICIONESPARAELABORARSOLICITUDDEOFERTAV2DETAILS_AN",
+        "type": "TABLE",
+        "privileges": [
+          "SELECT"
+        ]
+      },
+      {
+        "name": "SAP_ARIBA_DFORMCONDICIONESPARAELABORARSOLICITUDDEOFERTAV2_AN",
+        "type": "TABLE",
+        "privileges": [
+          "SELECT"
+        ]
+      },
+      {
+        "name": "SAP_ARIBA_DFORMCONDICIONESPARAELABORARSOLICITUDDEOFERTAV2_CUS_DFCERTIFICADOS5_NF9YD_AN",
+        "type": "TABLE",
+        "privileges": [
+          "SELECT"
+        ]
+      },
+      {
+        "name": "SAP_ARIBA_DFORMCONDICIONESPARAELABORARSOLICITUDDEOFERTAV2_CUS_DFCERTIFICADOS_20D1T2_AN",
+        "type": "TABLE",
+        "privileges": [
+          "SELECT"
+        ]
+      },
+      {
+        "name": "SAP_ARIBA_DFORMCONDICIONESPARAELABORARSOLICITUDDEOFERTAV2_CUS_DFGRUPOS_407XPY_AN",
+        "type": "TABLE",
+        "privileges": [
+          "SELECT"
+        ]
+      },
+      {
+        "name": "SAP_ARIBA_DFORMCONDICIONESPARAELABORARSOLICITUDDEOFERTAV2_CUS_DFINDIQUE_3QB084_AN",
+        "type": "TABLE",
+        "privileges": [
+          "SELECT"
+        ]
+      },
+      {
+        "name": "SAP_ARIBA_DFORMCONDICIONESPARAELABORARSOLICITUDDEOFERTAV2_CUS_DFMODALIDAD_30ACFM_AN",
+        "type": "TABLE",
+        "privileges": [
+          "SELECT"
+        ]
+      },
+      {
+        "name": "SAP_ARIBA_DFORMCONDICIONESPARAELABORARSOLICITUDDEOFERTAV2_CUS_DFMONEDAS_4D84AB_AN",
+        "type": "TABLE",
+        "privileges": [
+          "SELECT"
+        ]
+      },
+      {
+        "name": "SAP_ARIBA_DFORMCONDICIONESPARAELABORARSOLICITUDDEOFERTAV2_CUS_DFPERSONAS_FMU1V_AN",
+        "type": "TABLE",
+        "privileges": [
+          "SELECT"
+        ]
+      },
+      {
+        "name": "SAP_ARIBA_DFORMCONDICIONESPARAELABORARSOLICITUDDEOFERTAV2_CUS_DFTIPOPARTICIPANTES_2NA5V9_AN",
+        "type": "TABLE",
+        "privileges": [
+          "SELECT"
+        ]
+      },
+      {
+        "name": "SAP_ARIBA_DFORMCONDICIONESPARAELABORARSOLICITUDDEOFERTAV2_CUS_TIPOCONTRATO_1ACE0K_AN",
+        "type": "TABLE",
+        "privileges": [
+          "SELECT"
+        ]
+      },
+      {
+        "name": "SAP_ARIBA_DFORMDOCUMENTOSTRANSACCIONALESDETAILS_AN",
+        "type": "TABLE",
+        "privileges": [
+          "SELECT"
+        ]
+      },
+      {
+        "name": "SAP_ARIBA_DFORMDOCUMENTOSTRANSACCIONALES_AN",
+        "type": "TABLE",
+        "privileges": [
+          "SELECT"
+        ]
+      },
+      {
+        "name": "SAP_ARIBA_DFORMFICHADEACEPTACINDELCONTRATODETAILS_AN",
+        "type": "TABLE",
+        "privileges": [
+          "SELECT"
+        ]
+      },
+      {
+        "name": "SAP_ARIBA_DFORMFICHADEACEPTACINDELCONTRATO_AN",
+        "type": "TABLE",
+        "privileges": [
+          "SELECT"
+        ]
+      },
+      {
+        "name": "SAP_ARIBA_DFORMFICHADEACEPTACINDELCONTRATO_CUS_AMPAROS_3QB084_AN",
+        "type": "TABLE",
+        "privileges": [
+          "SELECT"
+        ]
+      },
+      {
+        "name": "SAP_ARIBA_DFORMFICHADEACEPTACINDELCONTRATO_CUS_CUSTOMERRESOURCESDFFACCOMPACEPOFLABE_PBY9W_AN",
+        "type": "TABLE",
+        "privileges": [
+          "SELECT"
+        ]
+      },
+      {
+        "name": "SAP_ARIBA_DFORMFICHADEACEPTACINDELCONTRATO_CUS_CUSTOMERRESOURCESDFFACPAISORILABEL_UK4VV_AN",
+        "type": "TABLE",
+        "privileges": [
+          "SELECT"
+        ]
+      },
+      {
+        "name": "SAP_ARIBA_DFORMFICHADEACEPTACINDELCONTRATO_CUS_GRUPOSPOBLACIONALES_20D1T2_AN",
+        "type": "TABLE",
+        "privileges": [
+          "SELECT"
+        ]
+      },
+      {
+        "name": "SAP_ARIBA_DFORMFICHADEACEPTACINDELCONTRATO_CUS_INDIQUELOSPROCESOSALOSQUEOBEDECELANE_30ACFM_AN",
+        "type": "TABLE",
+        "privileges": [
+          "SELECT"
+        ]
+      },
+      {
+        "name": "SAP_ARIBA_DFORMFICHADEACEPTACINDELCONTRATO_CUS_INDIQUELOSPROYECTOSALOSQUEOBEDECELAN_NF9YD_AN",
+        "type": "TABLE",
+        "privileges": [
+          "SELECT"
+        ]
+      },
+      {
+        "name": "SAP_ARIBA_DFORMFICHAPROCESODECONTRATACINDETAILS_AN",
+        "type": "TABLE",
+        "privileges": [
+          "SELECT"
+        ]
+      },
+      {
+        "name": "SAP_ARIBA_DFORMFICHAPROCESODECONTRATACIN_AN",
+        "type": "TABLE",
+        "privileges": [
+          "SELECT"
+        ]
+      },
+      {
+        "name": "SAP_ARIBA_DFORMFICHAPROCESODECONTRATACIN_CUS_CUSTOMERRESOURCESINDIQUELACAUSALDESI_30ACFM_AN",
+        "type": "TABLE",
+        "privileges": [
+          "SELECT"
+        ]
+      },
+      {
+        "name": "SAP_ARIBA_DFORMFICHAPROCESODECONTRATACIN_CUS_CUSTOMERRESOURCESINDIQUELACAUSALTERM_3QB084_AN",
+        "type": "TABLE",
+        "privileges": [
+          "SELECT"
+        ]
+      },
+      {
+        "name": "SAP_ARIBA_DFORMFORMULARIODEINFORMACINFINANCIERADETAILS_AN",
+        "type": "TABLE",
+        "privileges": [
+          "SELECT"
+        ]
+      },
+      {
+        "name": "SAP_ARIBA_DFORMFORMULARIODEINFORMACINFINANCIERA_AN",
+        "type": "TABLE",
+        "privileges": [
+          "SELECT"
+        ]
+      },
+      {
+        "name": "SAP_ARIBA_DFORMFORMULARIODEINFORMACINFINANCIERA_CUS_PROVEEDOR_FMU1V_AN",
+        "type": "TABLE",
+        "privileges": [
+          "SELECT"
+        ]
+      },
+      {
+        "name": "SAP_ARIBA_DFORMHOMOLOGACINPROVEEDORESDETAILS_AN",
+        "type": "TABLE",
+        "privileges": [
+          "SELECT"
+        ]
+      },
+      {
+        "name": "SAP_ARIBA_DFORMHOMOLOGACINPROVEEDORES_AN",
+        "type": "TABLE",
+        "privileges": [
+          "SELECT"
+        ]
+      },
+      {
+        "name": "SAP_ARIBA_DFORMHOMOLOGACINPROVEEDORES_CUS_DFARTICULOS2_4F9NVQ_AN",
+        "type": "TABLE",
+        "privileges": [
+          "SELECT"
+        ]
+      },
+      {
+        "name": "SAP_ARIBA_DFORMHOMOLOGACINPROVEEDORES_CUS_REQUISITOS_30ACFM_AN",
+        "type": "TABLE",
+        "privileges": [
+          "SELECT"
+        ]
+      },
+      {
+        "name": "SAP_ARIBA_DFORMMONEDASMODIFICACIONESDETAILS_AN",
+        "type": "TABLE",
+        "privileges": [
+          "SELECT"
+        ]
+      },
+      {
+        "name": "SAP_ARIBA_DFORMMONEDASMODIFICACIONES_AN",
+        "type": "TABLE",
+        "privileges": [
+          "SELECT"
+        ]
+      },
+      {
+        "name": "SAP_ARIBA_DFORMMONEDASMODIFICACIONES_CUS_DFORM3_PBY9W_AN",
+        "type": "TABLE",
+        "privileges": [
+          "SELECT"
+        ]
+      },
+      {
+        "name": "SAP_ARIBA_DFORMREGISTRODEMEDIDASDEAPREMIODETAILS_AN",
+        "type": "TABLE",
+        "privileges": [
+          "SELECT"
+        ]
+      },
+      {
+        "name": "SAP_ARIBA_DFORMREGISTRODEMEDIDASDEAPREMIO_AN",
+        "type": "TABLE",
+        "privileges": [
+          "SELECT"
+        ]
+      },
+      {
+        "name": "SAP_ARIBA_DFORMSEGUIMIENTOPOBLACINVULNERABLEDETAILS_AN",
+        "type": "TABLE",
+        "privileges": [
+          "SELECT"
+        ]
+      },
+      {
+        "name": "SAP_ARIBA_DFORMSEGUIMIENTOPOBLACIONVULNERABLE_AN",
+        "type": "TABLE",
+        "privileges": [
+          "SELECT"
+        ]
+      },
+      {
+        "name": "SAP_ARIBA_DFORMSIPMREGISTRODEEXPERIENCIADETAILS_AN",
+        "type": "TABLE",
+        "privileges": [
+          "SELECT"
+        ]
+      },
+      {
+        "name": "SAP_ARIBA_DFORMSIPMREGISTRODEEXPERIENCIA_AN",
+        "type": "TABLE",
+        "privileges": [
+          "SELECT"
+        ]
+      },
+      {
+        "name": "SAP_ARIBA_DFORMSIPMRESULTADOSDELPLANDEDESARROLLODEPROVEEDOR_AN",
+        "type": "TABLE",
+        "privileges": [
+          "SELECT"
+        ]
+      },
+      {
+        "name": "SAP_ARIBA_DFORMSIPMRESULTADOSDELPLANDEDESARROLLODEPROVEEDOR_CUS_SIPMRESPLANCATE_3XXP4O_AN",
+        "type": "TABLE",
+        "privileges": [
+          "SELECT"
+        ]
+      },
+      {
+        "name": "SAP_ARIBA_DFORMSIPMRESULTADOSDELPLANDEDESARROLLODEPROVEEDOR_CUS_SIPMRESPLANCRIT_30ACFM_AN",
+        "type": "TABLE",
+        "privileges": [
+          "SELECT"
+        ]
+      },
+      {
+        "name": "SAP_ARIBA_DFORMSIPMRESULTADOSDELPLANDEDESARROLLODEPROVEEDOR_CUS_SIPMRESPLANOBJ_3QB084_AN",
+        "type": "TABLE",
+        "privileges": [
+          "SELECT"
+        ]
+      },
+      {
+        "name": "SAP_ARIBA_DFORMSIPMRESULTADOSDELPLANDEDESARROLLODEPROVEEDOR_CUS_SIPMRESPLANPROV_FMU1V_AN",
+        "type": "TABLE",
+        "privileges": [
+          "SELECT"
+        ]
+      },
+      {
+        "name": "SAP_ARIBA_DFORMVALIDACINMERCADODEPROVEEDORESDETAILS_AN",
+        "type": "TABLE",
+        "privileges": [
+          "SELECT"
+        ]
+      },
+      {
+        "name": "SAP_ARIBA_DFORMVALIDACINMERCADODEPROVEEDORES_AN",
+        "type": "TABLE",
+        "privileges": [
+          "SELECT"
+        ]
+      },
+      {
+        "name": "SAP_ARIBA_DFORMVALIDACINMERCADODEPROVEEDORES_CUS_DFVMPTEXTMSELECT0001_30ACFM_AN",
         "type": "TABLE",
         "privileges": [
           "SELECT"
@@ -843,6 +1319,20 @@
         ]
       },
       {
+        "name": "SAP_ARIBA_EVENTITEMSUMMARY_TIPOCONTRATO_AN",
+        "type": "TABLE",
+        "privileges": [
+          "SELECT"
+        ]
+      },
+      {
+        "name": "SAP_ARIBA_EVENTITEMSUMMARY_PROYECTOYOPROCESO_AN",
+        "type": "TABLE",
+        "privileges": [
+          "SELECT"
+        ]
+      },
+      {
         "name": "SAP_ARIBA_EVENTPARTICIPATIONS_AN",
         "type": "TABLE",
         "privileges": [
@@ -865,6 +1355,20 @@
       },
       {
         "name": "SAP_ARIBA_EVENTPARTICIPATIONS_REGION_AN",
+        "type": "TABLE",
+        "privileges": [
+          "SELECT"
+        ]
+      },
+      {
+        "name": "SAP_ARIBA_EVENTPARTICIPATIONS_TIPOCONTRATO_AN",
+        "type": "TABLE",
+        "privileges": [
+          "SELECT"
+        ]
+      },
+      {
+        "name": "SAP_ARIBA_EVENTPARTICIPATIONS_PROYECTOYOPROCESO_AN",
         "type": "TABLE",
         "privileges": [
           "SELECT"
@@ -900,6 +1404,20 @@
       },
       {
         "name": "SAP_ARIBA_EVENTSUMMARY_REGION_AN",
+        "type": "TABLE",
+        "privileges": [
+          "SELECT"
+        ]
+      },
+      {
+        "name": "SAP_ARIBA_EVENTSUMMARY_TIPOCONTRATO_AN",
+        "type": "TABLE",
+        "privileges": [
+          "SELECT"
+        ]
+      },
+      {
+        "name": "SAP_ARIBA_EVENTSUMMARY_PROYECTOYOPROCESO_AN",
         "type": "TABLE",
         "privileges": [
           "SELECT"
@@ -1088,6 +1606,13 @@
         ]
       },
       {
+        "name": "SAP_ARIBA_PROJECTTASKNAMEDIM_AN",
+        "type": "TABLE",
+        "privileges": [
+          "SELECT"
+        ]
+      },
+      {
         "name": "SAP_ARIBA_PURCHASEORDERLINEITEMS_AN",
         "type": "TABLE",
         "privileges": [
@@ -1130,6 +1655,20 @@
         ]
       },
       {
+        "name": "SAP_ARIBA_SAVINGSALLOCATIONDETAILS_TIPOCONTRATO_AN",
+        "type": "TABLE",
+        "privileges": [
+          "SELECT"
+        ]
+      },
+      {
+        "name": "SAP_ARIBA_SAVINGSALLOCATIONDETAILS_PROYECTOYOPROCESO_AN",
+        "type": "TABLE",
+        "privileges": [
+          "SELECT"
+        ]
+      },
+      {
         "name": "SAP_ARIBA_SAVINGSFORM_AN",
         "type": "TABLE",
         "privileges": [
@@ -1159,6 +1698,13 @@
       },
       {
         "name": "SAP_ARIBA_SCORECARD_REGION_AN",
+        "type": "TABLE",
+        "privileges": [
+          "SELECT"
+        ]
+      },
+      {
+        "name": "SAP_ARIBA_SCORECARD_TIPOCONTRATO_AN",
         "type": "TABLE",
         "privileges": [
           "SELECT"
@@ -1333,6 +1879,20 @@
         ]
       },
       {
+        "name": "SAP_ARIBA_SOURCINGPROJECTS_TIPOCONTRATO_AN",
+        "type": "TABLE",
+        "privileges": [
+          "SELECT"
+        ]
+      },
+      {
+        "name": "SAP_ARIBA_SOURCINGPROJECTS_PROYECTOYOPROCESO_AN",
+        "type": "TABLE",
+        "privileges": [
+          "SELECT"
+        ]
+      },
+      {
         "name": "SAP_ARIBA_SOURCINGREQUESTS_ALLOWNERS_AN",
         "type": "TABLE",
         "privileges": [
@@ -1375,6 +1935,20 @@
         ]
       },
       {
+        "name": "SAP_ARIBA_SOURCINGREQUESTS_TIPOCONTRATO_AN",
+        "type": "TABLE",
+        "privileges": [
+          "SELECT"
+        ]
+      },
+      {
+        "name": "SAP_ARIBA_SOURCINGREQUESTS_PROYECTOYOPROCESO_AN",
+        "type": "TABLE",
+        "privileges": [
+          "SELECT"
+        ]
+      },
+      {
         "name": "SAP_ARIBA_SPMPROJECTS_ALLOWNERS_AN",
         "type": "TABLE",
         "privileges": [
@@ -1404,6 +1978,13 @@
       },
       {
         "name": "SAP_ARIBA_SPMPROJECTS_REGION_AN",
+        "type": "TABLE",
+        "privileges": [
+          "SELECT"
+        ]
+      },
+      {
+        "name": "SAP_ARIBA_SPMPROJECTS_TIPOCONTRATO_AN",
         "type": "TABLE",
         "privileges": [
           "SELECT"
@@ -1467,6 +2048,20 @@
       },
       {
         "name": "SAP_ARIBA_SUPPLIERPARTICIPATIONS_REGION_AN",
+        "type": "TABLE",
+        "privileges": [
+          "SELECT"
+        ]
+      },
+      {
+        "name": "SAP_ARIBA_SUPPLIERPARTICIPATIONS_TIPOCONTRATO_AN",
+        "type": "TABLE",
+        "privileges": [
+          "SELECT"
+        ]
+      },
+      {
+        "name": "SAP_ARIBA_SUPPLIERPARTICIPATIONS_PROYECTOYOPROCESO_AN",
         "type": "TABLE",
         "privileges": [
           "SELECT"
@@ -1620,6 +2215,13 @@
         ]
       },
       {
+        "name": "SAP_ARIBA_SURVEYRESPONSE_TIPOCONTRATO_AN",
+        "type": "TABLE",
+        "privileges": [
+          "SELECT"
+        ]
+      },
+      {
         "name": "SAP_ARIBA_SURVEY_AN",
         "type": "TABLE",
         "privileges": [
@@ -1667,168 +2269,8 @@
         "privileges": [
           "SELECT"
         ]
-      },
-      {
-        "name": "SAP_ARIBA_COLLABORATIONREQUEST_AN",
-        "type": "TABLE",
-        "privileges": [
-          "SELECT"
-        ]
-      },
-      {
-        "name": "SAP_ARIBA_CONTRACTLINEITEMDOCUMENT_AN",
-        "type": "TABLE",
-        "privileges": [
-          "SELECT"
-        ]
-      },
-      {
-        "name": "SAP_ARIBA_GENERALCONTRACTWORKSPACE_AN",
-        "type": "TABLE",
-        "privileges": [
-          "SELECT"
-        ]
-      },
-      {
-        "name": "SAP_ARIBA_GENERALCONTRACTWORKSPACE_AFFECTEDPARTIES_AN",
-        "type": "TABLE",
-        "privileges": [
-          "SELECT"
-        ]
-      },
-      {
-        "name": "SAP_ARIBA_GENERALCONTRACTWORKSPACE_ALLOWNERS_AN",
-        "type": "TABLE",
-        "privileges": [
-          "SELECT"
-        ]
-      },
-      {
-        "name": "SAP_ARIBA_GENERALCONTRACTWORKSPACE_COMMODITY_AN",
-        "type": "TABLE",
-        "privileges": [
-          "SELECT"
-        ]
-      },
-      {
-        "name": "SAP_ARIBA_GENERALCONTRACTWORKSPACE_ORGANIZATION_AN",
-        "type": "TABLE",
-        "privileges": [
-          "SELECT"
-        ]
-      },
-      {
-        "name": "SAP_ARIBA_GENERALCONTRACTWORKSPACE_REGION_AN",
-        "type": "TABLE",
-        "privileges": [
-          "SELECT"
-        ]
-      },
-      {
-        "name": "SAP_ARIBA_SALESCONTRACTWORKSPACE_AN",
-        "type": "TABLE",
-        "privileges": [
-          "SELECT"
-        ]
-      },
-      {
-        "name": "SAP_ARIBA_SALESCONTRACTWORKSPACE_AFFECTEDPARTIES_AN",
-        "type": "TABLE",
-        "privileges": [
-          "SELECT"
-        ]
-      },
-      {
-        "name": "SAP_ARIBA_SALESCONTRACTWORKSPACE_ALLOWNERS_AN",
-        "type": "TABLE",
-        "privileges": [
-          "SELECT"
-        ]
-      },
-      {
-        "name": "SAP_ARIBA_SALESCONTRACTWORKSPACE_COMMODITY_AN",
-        "type": "TABLE",
-        "privileges": [
-          "SELECT"
-        ]
-      },
-      {
-        "name": "SAP_ARIBA_SALESCONTRACTWORKSPACE_ORGANIZATION_AN",
-        "type": "TABLE",
-        "privileges": [
-          "SELECT"
-        ]
-      },
-      {
-        "name": "SAP_ARIBA_SALESCONTRACTWORKSPACE_REGION_AN",
-        "type": "TABLE",
-        "privileges": [
-          "SELECT"
-        ]
-      },
-      {
-        "name": "SAP_ARIBA_USERABILITYFACT_AN",
-        "type": "TABLE",
-        "privileges": [
-          "SELECT"
-        ]
-      },
-      {
-        "name": "SAP_ARIBA_DOCUMENT_AN",
-        "type": "TABLE",
-        "privileges": [
-          "SELECT"
-        ]
-      },
-      {
-        "name": "SAP_ARIBA_SRPROJECT_AN",
-        "type": "TABLE",
-        "privileges": [
-          "SELECT"
-        ]
-      },
-      {
-        "name": "SAP_ARIBA_SRPROJECT_ALLOWNERS_AN",
-        "type": "TABLE",
-        "privileges": [
-          "SELECT"
-        ]
-      },
-      {
-        "name": "SAP_ARIBA_SRPROJECT_COMMODITY_AN",
-        "type": "TABLE",
-        "privileges": [
-          "SELECT"
-        ]
-      },
-      {
-        "name": "SAP_ARIBA_SRPROJECT_ORGANIZATION_AN",
-        "type": "TABLE",
-        "privileges": [
-          "SELECT"
-        ]
-      },
-      {
-        "name": "SAP_ARIBA_SRPROJECT_REGION_AN",
-        "type": "TABLE",
-        "privileges": [
-          "SELECT"
-        ]
-      },
-      {
-        "name": "SAP_ARIBA_SRPROJECTINFO_AN",
-        "type": "TABLE",
-        "privileges": [
-          "SELECT"
-        ]
-      },
-      {
-        "name": "SAP_ARIBA_SMPROJECTINFO_AN",
-        "type": "TABLE",
-        "privileges": [
-          "SELECT"
-        ]
       }
+
     ]
  }
 }

@@ -1,0 +1,28 @@
+{
+    "status": "published",
+    "documentType": "ProjectTaskNameDim",
+    "selectAttributes": [
+        "TaskName",
+        "TaskId",
+        "SourceSystem",
+        "AclId",
+        "TemplateTaskName",
+        "ProcessId",
+        "TimeCreated",
+        "TimeUpdated"
+    ],
+    "filterExpressions": [
+        {
+            "name": "updatedDateTo",
+            "field": "TimeUpdated",
+            "op": "<=",
+            "defaultValue": null
+        },
+        {
+            "name": "updatedDateFrom",
+            "field": "TimeUpdated",
+            "op": ">=",
+            "defaultValue": null
+        }
+    ]
+}

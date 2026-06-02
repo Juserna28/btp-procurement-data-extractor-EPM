@@ -1,0 +1,41 @@
+{
+    "status": "published",
+    "documentType": "ContractsDForm_vrealm_50251_DocumentosTransaccionalesFact",
+    "selectAttributes": [
+        "cus_ResultadopreclasificacionNIIF_m01kn",
+        "cus_Nombre_m01kn",
+        "cus_Descripciondelcontrato_m01kn",
+        "cus_Valor_S6_1zsji5",
+        "cus_Valor_S3_1zsji5",
+        "cus_Valor_1zsji5",
+        "cus_Valor_S4_1zsji5",
+        "cus_Valor_S1_1zsji5",
+        "cus_Valor_S2_1zsji5",
+        "cus_Valor_m01kn",
+        "LoadCreateTime",
+        "LoadUpdateTime",
+        "ParentAgreement",
+        "InternalId",
+        "Title",
+        "SourceSystem",
+        "IsTestForm",
+        "AclId",
+        "FlexTypeId",
+        "TimeCreated",
+        "TimeUpdated"
+    ],
+    "filterExpressions": [
+        {
+            "name": "updatedDateTo",
+            "field": "TimeUpdated",
+            "op": "<=",
+            "defaultValue": null
+        },
+        {
+            "name": "updatedDateFrom",
+            "field": "TimeUpdated",
+            "op": ">=",
+            "defaultValue": null
+        }
+    ]
+}

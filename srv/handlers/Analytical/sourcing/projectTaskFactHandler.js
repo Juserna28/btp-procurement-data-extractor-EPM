@@ -6,11 +6,11 @@ const utils = require("../../../utils/Utils");
 
 
 //Amount fields in object
-function _getAmountPropertiesForDataCleaning () {
-    return [    ];
+function _getAmountPropertiesForDataCleaning() {
+    return [];
 }
 
-function _cleanData (aCleaningProperties, oData, realm) {
+function _cleanData(aCleaningProperties, oData, realm) {
     aCleaningProperties && aCleaningProperties.forEach(function (oCleaningProperty) {
         oData[oCleaningProperty] = oData[oCleaningProperty] && Math.round((parseFloat(oData[oCleaningProperty]) + Number.EPSILON) * 1000) / 1000;
     });
@@ -18,9 +18,9 @@ function _cleanData (aCleaningProperties, oData, realm) {
     return oData;
 }
 
-function insertData(aData, realm)  {
-    return new Promise(async function(resolve, reject)    {
-   
+function insertData(aData, realm) {
+    return new Promise(async function (resolve, reject) {
+
 
         if (!aData || aData.length === 0) {
             resolve(0);
@@ -28,57 +28,57 @@ function insertData(aData, realm)  {
         }
         logger.info(`Processing ${aData.length} records`);
         var aCleaningProperties = _getAmountPropertiesForDataCleaning();
-        let i=0;
-        for(const oData of aData) {
-            
+        let i = 0;
+        for (const oData of aData) {
+
             var oDataCleansed = _cleanData(aCleaningProperties, oData, realm);
             //Cleanse null nested objects
-            oDataCleansed.Observers = !oDataCleansed.Observers?[]:oDataCleansed.Observers;            
-            oDataCleansed.AllOwners = !oDataCleansed.AllOwners?[]:oDataCleansed.AllOwners;        
-            oDataCleansed.ActiveApprovers = !oDataCleansed.ActiveApprovers?[]:oDataCleansed.ActiveApprovers;
+            oDataCleansed.Observers = utils.normalizeToArray(oDataCleansed.Observers);
+            oDataCleansed.AllOwners = utils.normalizeToArray(oDataCleansed.AllOwners);
+            oDataCleansed.ActiveApprovers = utils.normalizeToArray(oDataCleansed.ActiveApprovers);
             oDataCleansed = utils.flattenTypes(oDataCleansed);
 
             try {
                 //Select record by Unique key
-                let res =  await SELECT.from ("sap.ariba.ProjectTasks_AN").where(
-                    { 
-                        Realm : oDataCleansed.Realm ,
-                        TaskId : oDataCleansed.TaskId
-                    }  );
+                let res = await SELECT.from("sap.ariba.ProjectTasks_AN").where(
+                    {
+                        Realm: oDataCleansed.Realm,
+                        TaskId: oDataCleansed.TaskId
+                    });
 
-                 if(res.length==0){
-                     //New record, insert
-                    await INSERT .into ("sap.ariba.ProjectTasks_AN") .entries (oDataCleansed) ;
-                                  
-                 }else{
-                     //Update existing record
-                     //Full Load of SourcingProjects_Organization SourcingProjects_AllOwners SourcingProjects_Suppliers SourcingProjects_Commodity SourcingProjects_Region
+                if (res.length == 0) {
+                    //New record, insert
+                    await INSERT.into("sap.ariba.ProjectTasks_AN").entries(oDataCleansed);
 
-                   
+                } else {
+                    //Update existing record
+                    //Full Load of SourcingProjects_Organization SourcingProjects_AllOwners SourcingProjects_Suppliers SourcingProjects_Commodity SourcingProjects_Region
 
-                     let activeApprovers = oDataCleansed["ActiveApprovers"];
-                     delete oDataCleansed["ActiveApprovers"];
 
-                     let observers = oDataCleansed["Observers"];
-                     delete oDataCleansed["Observers"];          
-                     
-                     let owners = oDataCleansed["AllOwners"];
-                     delete oDataCleansed["AllOwners"];
-                    
-                     await UPDATE ("sap.ariba.ProjectTasks_AN") .set (oDataCleansed) .where(
-                        { 
-                            Realm : oDataCleansed.Realm ,
-                            TaskId : oDataCleansed.TaskId
-                        } );
 
-                     await _FullLoadActiveApprovers(activeApprovers,oDataCleansed.Realm,oDataCleansed.ProjectId);
-                     await _FullLoadObservers(observers,oDataCleansed.Realm,oDataCleansed.ProjectId);
-                     await _FullLoadAllOwners(owners,oDataCleansed.Realm,oDataCleansed.ProjectId);
-                     
-                  
-                 }
-           
-            } catch (e) {                
+                    let activeApprovers = utils.normalizeToArray(oDataCleansed["ActiveApprovers"]);
+                    delete oDataCleansed["ActiveApprovers"];
+
+                    let observers = utils.normalizeToArray(oDataCleansed["Observers"]);
+                    delete oDataCleansed["Observers"];
+
+                    let owners = utils.normalizeToArray(oDataCleansed["AllOwners"]);
+                    delete oDataCleansed["AllOwners"];
+
+                    await UPDATE("sap.ariba.ProjectTasks_AN").set(oDataCleansed).where(
+                        {
+                            Realm: oDataCleansed.Realm,
+                            TaskId: oDataCleansed.TaskId
+                        });
+
+                    await _FullLoadActiveApprovers(activeApprovers, oDataCleansed.Realm, oDataCleansed.ProjectId);
+                    await _FullLoadObservers(observers, oDataCleansed.Realm, oDataCleansed.ProjectId);
+                    await _FullLoadAllOwners(owners, oDataCleansed.Realm, oDataCleansed.ProjectId);
+
+
+                }
+
+            } catch (e) {
                 logger.error(`Error on inserting data in database, aborting file processing, details ${e} `);
 
                 //abort full file
@@ -87,7 +87,7 @@ function insertData(aData, realm)  {
             }
             //Monitoring
             i++;
-            if(i%500 ==0){
+            if (i % 500 == 0) {
                 logger.info(`Upsert ${i} records`);
             }
 
@@ -98,29 +98,30 @@ function insertData(aData, realm)  {
 
 }
 
-async function _FullLoadActiveApprovers(activeApprovers,Realm,TaskId){
-    return new Promise(async (resolve,reject) =>{
+async function _FullLoadActiveApprovers(activeApprovers, Realm, TaskId) {
+    return new Promise(async (resolve, reject) => {
+        activeApprovers = utils.normalizeToArray(activeApprovers);
         //Delete old records
         try {
             await DELETE("sap.ariba.ProjectTasks_ActiveApprovers_AN").where({
-                ProjectTasks_Realm : Realm ,
-                ProjectTasks_TaskId : TaskId 
+                ProjectTasks_Realm: Realm,
+                ProjectTasks_TaskId: TaskId
             });
         }
-        catch(e){
+        catch (e) {
             logger.error(`Error on deleting from database, aborting file processing, details ${e} `);
             reject(e);
         }
 
         //Insert new records
-        for (const approver of activeApprovers){
-            try {             
-                
+        for (const approver of activeApprovers) {
+            try {
+
                 approver["ProjectTasks_Realm"] = Realm;
                 approver["ProjectTasks_TaskId"] = TaskId;
-                await INSERT .into ("sap.ariba.ProjectTasks_ActiveApprovers_AN") .entries (approver) ;
-           
-            } catch (e) {                
+                await INSERT.into("sap.ariba.ProjectTasks_ActiveApprovers_AN").entries(approver);
+
+            } catch (e) {
                 logger.error(`Error on inserting data in database, aborting file processing, details ${e} `);
                 reject(e);
                 break;
@@ -130,29 +131,30 @@ async function _FullLoadActiveApprovers(activeApprovers,Realm,TaskId){
     });
 }
 
-async function _FullLoadObservers(observers,Realm,TaskId){
-    return new Promise(async (resolve,reject) =>{
+async function _FullLoadObservers(observers, Realm, TaskId) {
+    return new Promise(async (resolve, reject) => {
+        observers = utils.normalizeToArray(observers);
         //Delete old records
         try {
             await DELETE("sap.ariba.ProjectTasks_Observers_AN").where({
-                ProjectTasks_Realm : Realm ,
-                ProjectTasks_TaskId : TaskId 
+                ProjectTasks_Realm: Realm,
+                ProjectTasks_TaskId: TaskId
             });
         }
-        catch(e){
+        catch (e) {
             logger.error(`Error on deleting from database, aborting file processing, details ${e} `);
             reject(e);
         }
 
         //Insert new records
-        for (const observer of observers){
-            try {             
-                
+        for (const observer of observers) {
+            try {
+
                 observer["ProjectTasks_Realm"] = Realm;
                 observer["ProjectTasks_TaskId"] = TaskId;
-                await INSERT .into ("sap.ariba.ProjectTasks_Observers_AN") .entries (observer) ;
-           
-            } catch (e) {                
+                await INSERT.into("sap.ariba.ProjectTasks_Observers_AN").entries(observer);
+
+            } catch (e) {
                 logger.error(`Error on inserting data in database, aborting file processing, details ${e} `);
                 reject(e);
                 break;
@@ -161,30 +163,31 @@ async function _FullLoadObservers(observers,Realm,TaskId){
         resolve();
     });
 }
- 
-async function _FullLoadAllOwners(owners,Realm,TaskId){
-    return new Promise(async (resolve,reject) =>{
+
+async function _FullLoadAllOwners(owners, Realm, TaskId) {
+    return new Promise(async (resolve, reject) => {
+        owners = utils.normalizeToArray(owners);
         //Delete old records
         try {
             await DELETE("sap.ariba.ProjectTasks_AllOwners_AN").where({
-                ProjectTasks_Realm : Realm ,
-                ProjectTasks_TaskId : TaskId 
+                ProjectTasks_Realm: Realm,
+                ProjectTasks_TaskId: TaskId
             });
         }
-        catch(e){
+        catch (e) {
             logger.error(`Error on deleting from database, aborting file processing, details ${e} `);
             reject(e);
         }
 
         //Insert new records
-        for (const owner of owners){
-            try {             
-                
+        for (const owner of owners) {
+            try {
+
                 owner["ProjectTasks_Realm"] = Realm;
                 owner["ProjectTasks_TaskId"] = TaskId;
-                await INSERT .into ("sap.ariba.ProjectTasks_AllOwners_AN") .entries (owner) ;
-           
-            } catch (e) {                
+                await INSERT.into("sap.ariba.ProjectTasks_AllOwners_AN").entries(owner);
+
+            } catch (e) {
                 logger.error(`Error on inserting data in database, aborting file processing, details ${e} `);
                 reject(e);
                 break;

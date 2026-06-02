@@ -1,0 +1,34 @@
+{
+    "status": "published",
+    "documentType": "ContractsDFormDetail_vrealm_50251_DocumentosTransaccionalesDetailsFact",
+    "selectAttributes": [
+        "cus_Numerodocumento_34ofhb",
+        "cus_Tipodocumento_p58et",
+        "cus_Notasdocumentos_p58et",
+        "cus_Nombredelaempresa_p58et",
+        "LoadCreateTime",
+        "LoadUpdateTime",
+        "ParentAgreement",
+        "DFormId",
+        "DetailLineNumber",
+        "SourceSystem",
+        "AclId",
+        "FlexTypeId",
+        "TimeCreated",
+        "TimeUpdated"
+    ],
+    "filterExpressions": [
+        {
+            "name": "updatedDateTo",
+            "field": "TimeUpdated",
+            "op": "<=",
+            "defaultValue": null
+        },
+        {
+            "name": "updatedDateFrom",
+            "field": "TimeUpdated",
+            "op": ">=",
+            "defaultValue": null
+        }
+    ]
+}

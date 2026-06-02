@@ -1,4 +1,3 @@
-
 //Util Entities
 using from './jobs/Jobs';
 
@@ -12,10 +11,6 @@ using from './Analytical/contracts/ContractWorkspaces';
 using from './Analytical/contracts/ContractRequests';
 using from './Analytical/contracts/ContractsDim';
 using from './Analytical/contracts/ContractItems';
-
-using from './Analytical/contracts/ContractLineItemDocument';
-using from './Analytical/contracts/GeneralContractWorkspace';
-using from './Analytical/contracts/SalesContractWorkspace';
 
 using from './Operational/contracts/ContractWorkspaces';
 using from './Operational/contracts/Contracts';
@@ -33,7 +28,6 @@ using from './Analytical/general/Organization';
 using from './Analytical/general/CostCenter';
 using from './Analytical/general/CompanyCode';
 using from './Analytical/general/UserData';
-using from './Analytical/general/UserAbility';
 
 //invoices
 using from './Analytical/invoices/InvoiceLineItemsSA';
@@ -68,7 +62,6 @@ using from './Operational/receipts/Receipt';
 
 //requisitions
 using from './Analytical/requisitions/RequisitionLineItems';
-using from './Analytical/requisitions/CollaborationRequest';
 using from './Operational/requisitions/Requisitions';
 
 //sourcing
@@ -87,9 +80,6 @@ using from './Analytical/sourcing/Projects';
 using from './Analytical/sourcing/ProjectInfo';
 using from './Analytical/sourcing/Event';
 using from './Analytical/sourcing/EventType';
-using from './Analytical/sourcing/SRProject';
-using from './Analytical/sourcing/SRProjectInfo';
-using from './Analytical/sourcing/Document';
 
 using from './Operational/sourcing/RFXDocument';
 using from './Operational/sourcing/RFXItem';
@@ -119,10 +109,42 @@ using from './Analytical/suppliers/SurveyResponses';
 using from './Analytical/suppliers/Scorecards';
 using from './Analytical/suppliers/SMSurveyTemplateQuestion';
 using from './Analytical/suppliers/Survey';
-using from './Analytical/suppliers/SMProjectInfo';
 
 using from './SupplierManagement/SLPSuppliers';
 
 //masterdata
 using from './MasterData/CommodityCode';
 using from './MasterData/PaymentTerms';
+
+
+//custom views 2026-05-12
+using from './Analytical/customviews/ProjectTasknameDim';
+
+// Custom CDS Views
+// Generated: 2026-05-15 10:28:34
+
+using from './Analytical/customviews/DformCondicionesparaElaborarlaSolicituddeOferta';
+using from './Analytical/customviews/DformCondicionesparaElaborarlaSolicituddeOfertaDetails';
+using from './Analytical/customviews/DformCONDICIONESPARAELABORARSOLICITUDDEOFERTAV2';
+using from './Analytical/customviews/DformCONDICIONESPARAELABORARSOLICITUDDEOFERTAV2Details';
+using from './Analytical/customviews/DformDocumentosTransaccionales';
+using from './Analytical/customviews/DformDocumentosTransaccionalesDetails';
+using from './Analytical/customviews/DformFichadeaceptacindelcontrato';
+using from './Analytical/customviews/DformFichadeaceptacindelcontratoDetails';
+using from './Analytical/customviews/DformFICHAPROCESODECONTRATACIN';
+using from './Analytical/customviews/DformFICHAPROCESODECONTRATACINDetails';
+using from './Analytical/customviews/DformFormulariodeInformacinFinanciera';
+using from './Analytical/customviews/DformFormulariodeInformacinFinancieraDetails';
+using from './Analytical/customviews/DformHomologacinProveedores';
+using from './Analytical/customviews/DformHomologacinProveedoresDetails';
+using from './Analytical/customviews/DformMonedasmodificaciones';
+using from './Analytical/customviews/DformMonedasmodificacionesDetails';
+using from './Analytical/customviews/DformRegistrodemedidasdeapremio';
+using from './Analytical/customviews/DformRegistrodemedidasdeapremioDetails';
+using from './Analytical/customviews/DformSeguimientoPoblacinVulnerableDetails';
+using from './Analytical/customviews/DformSeguimientoPoblacionVulnerable';
+using from './Analytical/customviews/DformSIPMRegistrodeExperiencia';
+using from './Analytical/customviews/DformSIPMRegistrodeExperienciaDetails';
+using from './Analytical/customviews/DformSIPMResultadosdelPlandeDesarrollodeProveedor';
+using from './Analytical/customviews/DformVALIDACINMERCADODEPROVEEDORES';
+using from './Analytical/customviews/DformVALIDACINMERCADODEPROVEEDORESDetails';

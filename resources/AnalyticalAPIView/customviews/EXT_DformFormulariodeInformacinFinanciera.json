@@ -1,0 +1,34 @@
+{
+    "status": "published",
+    "documentType": "ContractsDForm_vrealm_50251_FormulariodeInformacinFinancieraFact",
+    "selectAttributes": [
+        "cus_IDFiscalproveedor_m01kn",
+        "cus_Proveedor_fmu1v.VUF_Supplier1",
+        "LoadCreateTime",
+        "LoadUpdateTime",
+        "ParentAgreement",
+        "InternalId",
+        "Title",
+        "DocumentVersion",
+        "SourceSystem",
+        "IsTestForm",
+        "AclId",
+        "FlexTypeId",
+        "TimeCreated",
+        "TimeUpdated"
+    ],
+    "filterExpressions": [
+        {
+            "name": "updatedDateTo",
+            "field": "TimeUpdated",
+            "op": "<=",
+            "defaultValue": null
+        },
+        {
+            "name": "updatedDateFrom",
+            "field": "TimeUpdated",
+            "op": ">=",
+            "defaultValue": null
+        }
+    ]
+}

@@ -63,7 +63,7 @@ function insertData(aData, realm)  {
                      let suppliers = oDataCleansed["Suppliers"];
                      delete oDataCleansed["Suppliers"];
 
-                    await UPDATE ("sap.ariba.Projects") .set (oDataCleansed) .where(
+                    await UPDATE ("sap.ariba.ServicesProcurementWorkspaces_AN") .set (oDataCleansed) .where(
                         {
                             Realm : oDataCleansed.Realm ,
                             ProjectId : oDataCleansed.ProjectId
@@ -102,8 +102,8 @@ async function _FullLoadRegions(regions, Realm, ProjectId) {
         //Delete old records
         try {
             await DELETE("sap.ariba.ServicesProcurementWorkspaces_Region_AN").where({
-                Projects_Realm : Realm ,
-                Projects_ProjectId : ProjectId
+                ServicesProcurementWorkspaces_Realm : Realm ,
+                ServicesProcurementWorkspaces_ProjectId : ProjectId
             });
         }
         catch(e){
@@ -115,8 +115,8 @@ async function _FullLoadRegions(regions, Realm, ProjectId) {
         for (const re of regions){
             try {
 
-                re["Projects_Realm"] = Realm;
-                re["Projects_ProjectId"] = ProjectId;
+                re["ServicesProcurementWorkspaces_Realm"] = Realm;
+                re["ServicesProcurementWorkspaces_ProjectId"] = ProjectId;
                 await INSERT .into ("sap.ariba.ServicesProcurementWorkspaces_Region_AN") .entries (re) ;
 
             } catch (e) {
@@ -134,8 +134,8 @@ async function _FullLoadOrganizations(organizations, Realm, ProjectId) {
         //Delete old records
         try {
             await DELETE("sap.ariba.ServicesProcurementWorkspaces_Organization_AN").where({
-                Projects_Realm : Realm ,
-                Projects_ProjectId : ProjectId
+                ServicesProcurementWorkspaces_Realm : Realm ,
+                ServicesProcurementWorkspaces_ProjectId : ProjectId
             });
         }
         catch(e){
@@ -147,8 +147,8 @@ async function _FullLoadOrganizations(organizations, Realm, ProjectId) {
         for (const org of organizations){
             try {
 
-                org["Projects_Realm"] = Realm;
-                org["Projects_ProjectId"] = ProjectId;
+                org["ServicesProcurementWorkspaces_Realm"] = Realm;
+                org["ServicesProcurementWorkspaces_ProjectId"] = ProjectId;
                 await INSERT .into ("sap.ariba.ServicesProcurementWorkspaces_Organization_AN") .entries (org) ;
 
             } catch (e) {
@@ -166,8 +166,8 @@ async function _FullLoadCommodities(commodities, Realm, ProjectId) {
         //Delete old records
         try {
             await DELETE("sap.ariba.ServicesProcurementWorkspaces_Commodity_AN").where({
-                Projects_Realm : Realm ,
-                Projects_ProjectId : ProjectId
+                ServicesProcurementWorkspaces_Realm : Realm ,
+                ServicesProcurementWorkspaces_ProjectId : ProjectId
             });
         }
         catch(e){
@@ -179,8 +179,8 @@ async function _FullLoadCommodities(commodities, Realm, ProjectId) {
         for (const co of commodities){
             try {
 
-                co["Projects_Realm"] = Realm;
-                co["Projects_ProjectId"] = ProjectId;
+                co["ServicesProcurementWorkspaces_Realm"] = Realm;
+                co["ServicesProcurementWorkspaces_ProjectId"] = ProjectId;
                 await INSERT .into ("sap.ariba.ServicesProcurementWorkspaces_Commodity_AN") .entries (co) ;
 
             } catch (e) {
@@ -198,8 +198,8 @@ async function _FullLoadAllOwners(allOwners, Realm, ProjectId) {
         //Delete old records
         try {
             await DELETE("sap.ariba.ServicesProcurementWorkspaces_AllOwners_AN").where({
-                Projects_Realm : Realm ,
-                Projects_ProjectId : ProjectId
+                ServicesProcurementWorkspaces_Realm : Realm ,
+                ServicesProcurementWorkspaces_ProjectId : ProjectId
             });
         }
         catch(e){
@@ -211,8 +211,8 @@ async function _FullLoadAllOwners(allOwners, Realm, ProjectId) {
         for (const all of allOwners){
             try {
 
-                all["Projects_Realm"] = Realm;
-                all["Projects_ProjectId"] = ProjectId;
+                all["ServicesProcurementWorkspaces_Realm"] = Realm;
+                all["ServicesProcurementWorkspaces_ProjectId"] = ProjectId;
                 await INSERT .into ("sap.ariba.ServicesProcurementWorkspaces_AllOwners_AN") .entries (all) ;
 
             } catch (e) {
@@ -230,8 +230,8 @@ async function _FullLoadSuppliers(suppliers, Realm, ProjectId) {
         //Delete old records
         try {
             await DELETE("sap.ariba.ServicesProcurementWorkspaces_Suppliers_AN").where({
-                Projects_Realm : Realm ,
-                Projects_ProjectId : ProjectId
+                ServicesProcurementWorkspaces_Realm : Realm ,
+                ServicesProcurementWorkspaces_ProjectId : ProjectId
             });
         }
         catch(e){
@@ -243,8 +243,8 @@ async function _FullLoadSuppliers(suppliers, Realm, ProjectId) {
         for (const sup of suppliers){
             try {
 
-                sup["Projects_Realm"] = Realm;
-                sup["Projects_ProjectId"] = ProjectId;
+                sup["ServicesProcurementWorkspaces_Realm"] = Realm;
+                sup["ServicesProcurementWorkspaces_ProjectId"] = ProjectId;
                 await INSERT .into ("sap.ariba.ServicesProcurementWorkspaces_Suppliers_AN") .entries (sup) ;
 
             } catch (e) {

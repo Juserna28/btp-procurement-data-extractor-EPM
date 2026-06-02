@@ -6,19 +6,19 @@ const utils = require("../../../utils/Utils");
 
 
 //Amount fields in object
-function _getAmountPropertiesForDataCleaning () {
+function _getAmountPropertiesForDataCleaning() {
     return [
     ];
 }
 
-function _FlatteningData (oData) {
+function _FlatteningData(oData) {
 
     //Structure flattening
     oData.ScorecardId = oData.Scorecard.ScorecardId;
     oData.ScorecardSourceSystem = oData.Scorecard.SourceSystem;
     oData.ScorecardVersionNumber = oData.Scorecard.VersionNumber;
     oData.SourceSystemId = oData.SourceSystem.SourceSystemId;
-    
+
     oData.KPIId = oData.KPI.KPIId;
     oData.KPISourceSystem = oData.KPI.SourceSystem;
     oData.RespondentUserId = oData.RespondentUser.UserId;
@@ -27,8 +27,8 @@ function _FlatteningData (oData) {
     return oData;
 }
 
-function insertData(aData, realm)  {
-    return new Promise(async function(resolve, reject)    {
+function insertData(aData, realm) {
+    return new Promise(async function (resolve, reject) {
 
 
         if (!aData || aData.length === 0) {
@@ -37,74 +37,85 @@ function insertData(aData, realm)  {
         }
         logger.info(`Processing ${aData.length} records`);
         var aCleaningProperties = _getAmountPropertiesForDataCleaning();
-        let i=0;
-        for(const oData of aData) {
+        let i = 0;
+        for (const oData of aData) {
 
             var oDataCleansed = utils.cleanData(aCleaningProperties, oData, realm);
             oDataCleansed = _FlatteningData(oDataCleansed);
+            oDataCleansed = utils.deduplicateKeys(oDataCleansed);
+
+            oDataCleansed.Commodity = utils.normalizeToArray(oDataCleansed.Commodity);
+            oDataCleansed.Region = utils.normalizeToArray(oDataCleansed.Region);
+            oDataCleansed.Department = utils.normalizeToArray(oDataCleansed.Department);
+            oDataCleansed.cus_tipocontrato_44q7p4 = utils.normalizeToArray(oDataCleansed.cus_tipocontrato_44q7p4);
+
             oDataCleansed = utils.flattenTypes(oDataCleansed);
 
             try {
                 //Select record by Unique key
-                let res =  await SELECT.from ("sap.ariba.Scorecard_AN").where(
+                let res = await SELECT.from("sap.ariba.Scorecard_AN").where(
                     {
-                        Realm : oDataCleansed.Realm ,
-                        ScorecardId : oDataCleansed.ScorecardId,
-                        ScorecardSourceSystem : oDataCleansed.ScorecardSourceSystem,
-                        ScorecardVersionNumber : oDataCleansed.ScorecardVersionNumber,
-                        SourceSystemId : oDataCleansed.SourceSystemId,
-                        KPIId : oDataCleansed.KPIId,
-                        KPISourceSystem : oDataCleansed.KPISourceSystem,
-                        RespondentUserSourceSystem : oDataCleansed.RespondentUserSourceSystem,
-                        RespondentUserId : oDataCleansed.RespondentUserId,
-                        RespondentUserPasswordAdapter : oDataCleansed.RespondentUserPasswordAdapter
+                        Realm: oDataCleansed.Realm,
+                        ScorecardId: oDataCleansed.ScorecardId,
+                        ScorecardSourceSystem: oDataCleansed.ScorecardSourceSystem,
+                        ScorecardVersionNumber: oDataCleansed.ScorecardVersionNumber,
+                        SourceSystemId: oDataCleansed.SourceSystemId,
+                        KPIId: oDataCleansed.KPIId,
+                        KPISourceSystem: oDataCleansed.KPISourceSystem,
+                        RespondentUserSourceSystem: oDataCleansed.RespondentUserSourceSystem,
+                        RespondentUserId: oDataCleansed.RespondentUserId,
+                        RespondentUserPasswordAdapter: oDataCleansed.RespondentUserPasswordAdapter
 
                     });
 
-                 if(res.length==0){
-                     //New record, insert
-                    await INSERT .into ("sap.ariba.Scorecard_AN") .entries (oDataCleansed) ;
+                if (res.length == 0) {
+                    //New record, insert
+                    await INSERT.into("sap.ariba.Scorecard_AN").entries(oDataCleansed);
 
-                 }else{
+                } else {
 
-                     let commodities = oDataCleansed["Commodity"];
-                     delete oDataCleansed["Commodity"];
+                    let commodities = utils.normalizeToArray(oDataCleansed["Commodity"]);
+                    delete oDataCleansed["Commodity"];
 
-                     let regions = oDataCleansed["Region"];
-                     delete oDataCleansed["Region"];
+                    let regions = utils.normalizeToArray(oDataCleansed["Region"]);
+                    delete oDataCleansed["Region"];
 
-                     let departments = oDataCleansed["Department"];
-                     delete oDataCleansed["Department"];
+                    let departments = utils.normalizeToArray(oDataCleansed["Department"]);
+                    delete oDataCleansed["Department"];
 
+                    let tipocontrato = utils.normalizeToArray(oDataCleansed["cus_tipocontrato_44q7p4"]);
+                    delete oDataCleansed["cus_tipocontrato_44q7p4"];
 
-
-                     //Update existing record
-                    await UPDATE ("sap.ariba.Scorecard_AN") .set (oDataCleansed) .where(
+                    //Update existing record
+                    await UPDATE("sap.ariba.Scorecard_AN").set(oDataCleansed).where(
                         {
-                            Realm : oDataCleansed.Realm ,
-                            ScorecardId : oDataCleansed.ScorecardId,
-                            ScorecardSourceSystem : oDataCleansed.ScorecardSourceSystem,
-                            ScorecardVersionNumber : oDataCleansed.ScorecardVersionNumber,
-                            SourceSystemId : oDataCleansed.SourceSystemId,
-                            KPIId : oDataCleansed.KPIId,
-                            KPISourceSystem : oDataCleansed.KPISourceSystem,
-                            RespondentUserSourceSystem : oDataCleansed.RespondentUserSourceSystem,
-                            RespondentUserId : oDataCleansed.RespondentUserId,
-                            RespondentUserPasswordAdapter : oDataCleansed.RespondentUserPasswordAdapter
-    
-                         } );
+                            Realm: oDataCleansed.Realm,
+                            ScorecardId: oDataCleansed.ScorecardId,
+                            ScorecardSourceSystem: oDataCleansed.ScorecardSourceSystem,
+                            ScorecardVersionNumber: oDataCleansed.ScorecardVersionNumber,
+                            SourceSystemId: oDataCleansed.SourceSystemId,
+                            KPIId: oDataCleansed.KPIId,
+                            KPISourceSystem: oDataCleansed.KPISourceSystem,
+                            RespondentUserSourceSystem: oDataCleansed.RespondentUserSourceSystem,
+                            RespondentUserId: oDataCleansed.RespondentUserId,
+                            RespondentUserPasswordAdapter: oDataCleansed.RespondentUserPasswordAdapter
 
-                    await _FullLoadCommodities(commodities,oDataCleansed.Realm,oDataCleansed.ScorecardId,oDataCleansed.ScorecardSourceSystem,
-                        oDataCleansed.ScorecardVersionNumber,oDataCleansed.SourceSystemId,oDataCleansed.KPIId,
-                        oDataCleansed.KPISourceSystem,oDataCleansed.RespondentUserSourceSystem,oDataCleansed.RespondentUserId,oDataCleansed.RespondentUserPasswordAdapter);
-                    await _FullLoadRegions(regions,oDataCleansed.Realm,oDataCleansed.ScorecardId,oDataCleansed.ScorecardSourceSystem,
-                        oDataCleansed.ScorecardVersionNumber,oDataCleansed.SourceSystemId,oDataCleansed.KPIId,
-                        oDataCleansed.KPISourceSystem,oDataCleansed.RespondentUserSourceSystem,oDataCleansed.RespondentUserId,oDataCleansed.RespondentUserPasswordAdapter);
-                    await _FullLoadDepartments(departments,oDataCleansed.Realm,oDataCleansed.ScorecardId,oDataCleansed.ScorecardSourceSystem,
-                        oDataCleansed.ScorecardVersionNumber,oDataCleansed.SourceSystemId,oDataCleansed.KPIId,
-                        oDataCleansed.KPISourceSystem,oDataCleansed.RespondentUserSourceSystem,oDataCleansed.RespondentUserId,oDataCleansed.RespondentUserPasswordAdapter);
-                                      
-                 }
+                        });
+
+                    await _FullLoadCommodities(commodities, oDataCleansed.Realm, oDataCleansed.ScorecardId, oDataCleansed.ScorecardSourceSystem,
+                        oDataCleansed.ScorecardVersionNumber, oDataCleansed.SourceSystemId, oDataCleansed.KPIId,
+                        oDataCleansed.KPISourceSystem, oDataCleansed.RespondentUserSourceSystem, oDataCleansed.RespondentUserId, oDataCleansed.RespondentUserPasswordAdapter);
+                    await _FullLoadRegions(regions, oDataCleansed.Realm, oDataCleansed.ScorecardId, oDataCleansed.ScorecardSourceSystem,
+                        oDataCleansed.ScorecardVersionNumber, oDataCleansed.SourceSystemId, oDataCleansed.KPIId,
+                        oDataCleansed.KPISourceSystem, oDataCleansed.RespondentUserSourceSystem, oDataCleansed.RespondentUserId, oDataCleansed.RespondentUserPasswordAdapter);
+                    await _FullLoadDepartments(departments, oDataCleansed.Realm, oDataCleansed.ScorecardId, oDataCleansed.ScorecardSourceSystem,
+                        oDataCleansed.ScorecardVersionNumber, oDataCleansed.SourceSystemId, oDataCleansed.KPIId,
+                        oDataCleansed.KPISourceSystem, oDataCleansed.RespondentUserSourceSystem, oDataCleansed.RespondentUserId, oDataCleansed.RespondentUserPasswordAdapter);
+                    await _FullLoadTipoContrato(tipocontrato, oDataCleansed.Realm, oDataCleansed.ScorecardId, oDataCleansed.ScorecardSourceSystem,
+                        oDataCleansed.ScorecardVersionNumber, oDataCleansed.SourceSystemId, oDataCleansed.KPIId,
+                        oDataCleansed.KPISourceSystem, oDataCleansed.RespondentUserSourceSystem, oDataCleansed.RespondentUserId, oDataCleansed.RespondentUserPasswordAdapter);
+
+                }
 
             } catch (e) {
                 logger.error(`Error on inserting data in database, aborting file processing, details ${e} `);
@@ -115,7 +126,7 @@ function insertData(aData, realm)  {
             }
             //Monitoring
             i++;
-            if(i%500 ==0){
+            if (i % 500 == 0) {
                 logger.info(`Upsert ${i} records`);
             }
 
@@ -128,32 +139,33 @@ function insertData(aData, realm)  {
 
 
 
-async function _FullLoadCommodities(commodities,Realm,ScorecardId,ScorecardSourceSystem,
-    ScorecardVersionNumber,SourceSystemId,KPIId,
-    KPISourceSystem,RespondentUserSourceSystem,RespondentUserId,RespondentUserPasswordAdapter){
-    return new Promise(async (resolve,reject) =>{
+async function _FullLoadCommodities(commodities, Realm, ScorecardId, ScorecardSourceSystem,
+    ScorecardVersionNumber, SourceSystemId, KPIId,
+    KPISourceSystem, RespondentUserSourceSystem, RespondentUserId, RespondentUserPasswordAdapter) {
+    return new Promise(async (resolve, reject) => {
+        commodities = utils.normalizeToArray(commodities);
         //Delete old records
         try {
             await DELETE("sap.ariba.Scorecard_Commodity_AN").where({
-                Scorecard_Realm : Realm ,
-                Scorecard_ScorecardId : ScorecardId,
-                Scorecard_ScorecardSourceSystem : ScorecardSourceSystem,
-                Scorecard_ScorecardVersionNumber : ScorecardVersionNumber,
-                Scorecard_SourceSystemId : SourceSystemId,
-                Scorecard_KPIId : KPIId,
-                Scorecard_KPISourceSystem : KPISourceSystem,
-                Scorecard_RespondentUserSourceSystem : RespondentUserSourceSystem,
-                Scorecard_RespondentUserId : RespondentUserId,
-                Scorecard_RespondentUserPasswordAdapter : RespondentUserPasswordAdapter
+                Scorecard_Realm: Realm,
+                Scorecard_ScorecardId: ScorecardId,
+                Scorecard_ScorecardSourceSystem: ScorecardSourceSystem,
+                Scorecard_ScorecardVersionNumber: ScorecardVersionNumber,
+                Scorecard_SourceSystemId: SourceSystemId,
+                Scorecard_KPIId: KPIId,
+                Scorecard_KPISourceSystem: KPISourceSystem,
+                Scorecard_RespondentUserSourceSystem: RespondentUserSourceSystem,
+                Scorecard_RespondentUserId: RespondentUserId,
+                Scorecard_RespondentUserPasswordAdapter: RespondentUserPasswordAdapter
             });
         }
-        catch(e){
+        catch (e) {
             logger.error(`Error on deleting from database, aborting file processing, details ${e} `);
             reject(e);
         }
 
         //Insert new records
-        for (const o of commodities){
+        for (const o of commodities) {
             try {
 
                 o["Scorecard_Realm"] = Realm;
@@ -167,7 +179,7 @@ async function _FullLoadCommodities(commodities,Realm,ScorecardId,ScorecardSourc
                 o["Scorecard_RespondentUserId"] = RespondentUserId;
                 o["Scorecard_RespondentUserPasswordAdapter"] = RespondentUserPasswordAdapter;
 
-                await INSERT .into ("sap.ariba.SurveyResponse_Commodity") .entries (o) ;
+                await INSERT.into("sap.ariba.Scorecard_Commodity_AN").entries(o);
 
             } catch (e) {
                 logger.error(`Error on inserting data in database, aborting file processing, details ${e} `);
@@ -179,32 +191,33 @@ async function _FullLoadCommodities(commodities,Realm,ScorecardId,ScorecardSourc
     });
 }
 
-async function _FullLoadRegions(regions,Realm,ScorecardId,ScorecardSourceSystem,
-    ScorecardVersionNumber,SourceSystemId,KPIId,
-    KPISourceSystem,RespondentUserSourceSystem,RespondentUserId,RespondentUserPasswordAdapter){
-    return new Promise(async (resolve,reject) =>{
+async function _FullLoadRegions(regions, Realm, ScorecardId, ScorecardSourceSystem,
+    ScorecardVersionNumber, SourceSystemId, KPIId,
+    KPISourceSystem, RespondentUserSourceSystem, RespondentUserId, RespondentUserPasswordAdapter) {
+    return new Promise(async (resolve, reject) => {
+        regions = utils.normalizeToArray(regions);
         //Delete old records
         try {
             await DELETE("sap.ariba.Scorecard_Region_AN").where({
-                Scorecard_Realm : Realm ,
-                Scorecard_ScorecardId : ScorecardId,
-                Scorecard_ScorecardSourceSystem : ScorecardSourceSystem,
-                Scorecard_ScorecardVersionNumber : ScorecardVersionNumber,
-                Scorecard_SourceSystemId : SourceSystemId,
-                Scorecard_KPIId : KPIId,
-                Scorecard_KPISourceSystem : KPISourceSystem,
-                Scorecard_RespondentUserSourceSystem : RespondentUserSourceSystem,
-                Scorecard_RespondentUserId : RespondentUserId,
-                Scorecard_RespondentUserPasswordAdapter : RespondentUserPasswordAdapter
+                Scorecard_Realm: Realm,
+                Scorecard_ScorecardId: ScorecardId,
+                Scorecard_ScorecardSourceSystem: ScorecardSourceSystem,
+                Scorecard_ScorecardVersionNumber: ScorecardVersionNumber,
+                Scorecard_SourceSystemId: SourceSystemId,
+                Scorecard_KPIId: KPIId,
+                Scorecard_KPISourceSystem: KPISourceSystem,
+                Scorecard_RespondentUserSourceSystem: RespondentUserSourceSystem,
+                Scorecard_RespondentUserId: RespondentUserId,
+                Scorecard_RespondentUserPasswordAdapter: RespondentUserPasswordAdapter
             });
         }
-        catch(e){
+        catch (e) {
             logger.error(`Error on deleting from database, aborting file processing, details ${e} `);
             reject(e);
         }
 
         //Insert new records
-        for (const o of regions){
+        for (const o of regions) {
             try {
 
                 o["Scorecard_Realm"] = Realm;
@@ -218,7 +231,7 @@ async function _FullLoadRegions(regions,Realm,ScorecardId,ScorecardSourceSystem,
                 o["Scorecard_RespondentUserId"] = RespondentUserId;
                 o["Scorecard_RespondentUserPasswordAdapter"] = RespondentUserPasswordAdapter;
 
-                await INSERT .into ("sap.ariba.Scorecard_Region_AN") .entries (o) ;
+                await INSERT.into("sap.ariba.Scorecard_Region_AN").entries(o);
 
             } catch (e) {
                 logger.error(`Error on inserting data in database, aborting file processing, details ${e} `);
@@ -231,32 +244,33 @@ async function _FullLoadRegions(regions,Realm,ScorecardId,ScorecardSourceSystem,
 }
 
 
-async function _FullLoadDepartments(departments,Realm,ScorecardId,ScorecardSourceSystem,
-    ScorecardVersionNumber,SourceSystemId,KPIId,
-    KPISourceSystem,RespondentUserSourceSystem,RespondentUserId,RespondentUserPasswordAdapter){
-    return new Promise(async (resolve,reject) =>{
+async function _FullLoadDepartments(departments, Realm, ScorecardId, ScorecardSourceSystem,
+    ScorecardVersionNumber, SourceSystemId, KPIId,
+    KPISourceSystem, RespondentUserSourceSystem, RespondentUserId, RespondentUserPasswordAdapter) {
+    return new Promise(async (resolve, reject) => {
+        departments = utils.normalizeToArray(departments);
         //Delete old records
         try {
             await DELETE("sap.ariba.Scorecard_Department_AN").where({
-                Scorecard_Realm : Realm ,
-                Scorecard_ScorecardId : ScorecardId,
-                Scorecard_ScorecardSourceSystem : ScorecardSourceSystem,
-                Scorecard_ScorecardVersionNumber : ScorecardVersionNumber,
-                Scorecard_SourceSystemId : SourceSystemId,
-                Scorecard_KPIId : KPIId,
-                Scorecard_KPISourceSystem : KPISourceSystem,
-                Scorecard_RespondentUserSourceSystem : RespondentUserSourceSystem,
-                Scorecard_RespondentUserId : RespondentUserId,
-                Scorecard_RespondentUserPasswordAdapter : RespondentUserPasswordAdapter
+                Scorecard_Realm: Realm,
+                Scorecard_ScorecardId: ScorecardId,
+                Scorecard_ScorecardSourceSystem: ScorecardSourceSystem,
+                Scorecard_ScorecardVersionNumber: ScorecardVersionNumber,
+                Scorecard_SourceSystemId: SourceSystemId,
+                Scorecard_KPIId: KPIId,
+                Scorecard_KPISourceSystem: KPISourceSystem,
+                Scorecard_RespondentUserSourceSystem: RespondentUserSourceSystem,
+                Scorecard_RespondentUserId: RespondentUserId,
+                Scorecard_RespondentUserPasswordAdapter: RespondentUserPasswordAdapter
             });
         }
-        catch(e){
+        catch (e) {
             logger.error(`Error on deleting from database, aborting file processing, details ${e} `);
             reject(e);
         }
 
         //Insert new records
-        for (const o of departments){
+        for (const o of departments) {
             try {
 
                 o["Scorecard_Realm"] = Realm;
@@ -270,7 +284,60 @@ async function _FullLoadDepartments(departments,Realm,ScorecardId,ScorecardSourc
                 o["Scorecard_RespondentUserId"] = RespondentUserId;
                 o["Scorecard_RespondentUserPasswordAdapter"] = RespondentUserPasswordAdapter;
 
-                await INSERT .into ("sap.ariba.Scorecard_Department_AN") .entries (o) ;
+                await INSERT.into("sap.ariba.Scorecard_Department_AN").entries(o);
+
+            } catch (e) {
+                logger.error(`Error on inserting data in database, aborting file processing, details ${e} `);
+                reject(e);
+                break;
+            }
+        }
+        resolve();
+    });
+}
+
+
+async function _FullLoadTipoContrato(tipocontrato, Realm, ScorecardId, ScorecardSourceSystem,
+    ScorecardVersionNumber, SourceSystemId, KPIId,
+    KPISourceSystem, RespondentUserSourceSystem, RespondentUserId, RespondentUserPasswordAdapter) {
+    return new Promise(async (resolve, reject) => {
+        tipocontrato = utils.normalizeToArray(tipocontrato);
+        //Delete old records
+        try {
+            await DELETE("sap.ariba.Scorecard_tipocontrato_AN").where({
+                Scorecard_Realm: Realm,
+                Scorecard_ScorecardId: ScorecardId,
+                Scorecard_ScorecardSourceSystem: ScorecardSourceSystem,
+                Scorecard_ScorecardVersionNumber: ScorecardVersionNumber,
+                Scorecard_SourceSystemId: SourceSystemId,
+                Scorecard_KPIId: KPIId,
+                Scorecard_KPISourceSystem: KPISourceSystem,
+                Scorecard_RespondentUserSourceSystem: RespondentUserSourceSystem,
+                Scorecard_RespondentUserId: RespondentUserId,
+                Scorecard_RespondentUserPasswordAdapter: RespondentUserPasswordAdapter
+            });
+        }
+        catch (e) {
+            logger.error(`Error on deleting from database, aborting file processing, details ${e} `);
+            reject(e);
+        }
+
+        //Insert new records
+        for (const o of tipocontrato) {
+            try {
+
+                o["Scorecard_Realm"] = Realm;
+                o["Scorecard_ScorecardId"] = ScorecardId;
+                o["Scorecard_ScorecardSourceSystem"] = ScorecardSourceSystem;
+                o["Scorecard_ScorecardVersionNumber"] = ScorecardVersionNumber;
+                o["Scorecard_SourceSystemId"] = SourceSystemId;
+                o["Scorecard_KPIId"] = KPIId;
+                o["Scorecard_KPISourceSystem"] = KPISourceSystem;
+                o["Scorecard_RespondentUserSourceSystem"] = RespondentUserSourceSystem;
+                o["Scorecard_RespondentUserId"] = RespondentUserId;
+                o["Scorecard_RespondentUserPasswordAdapter"] = RespondentUserPasswordAdapter;
+
+                await INSERT.into("sap.ariba.Scorecard_tipocontrato_AN").entries(o);
 
             } catch (e) {
                 logger.error(`Error on inserting data in database, aborting file processing, details ${e} `);

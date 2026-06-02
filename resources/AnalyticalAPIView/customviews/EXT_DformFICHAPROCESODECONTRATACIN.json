@@ -1,0 +1,54 @@
+{
+    "status": "published",
+    "documentType": "ContractsDForm_vrealm_50251_FICHAPROCESODECONTRATACINFact",
+    "selectAttributes": [
+        "cus_dfcupoinicial_S6_1zsji5",
+        "cus_dfcupoinicial_S3_1zsji5",
+        "cus_dfcupoinicial_1zsji5",
+        "cus_dfcupoinicial_S4_1zsji5",
+        "cus_dfcupoinicial_S1_1zsji5",
+        "cus_dfcupoinicial_S2_1zsji5",
+        "cus_dfcupoinicial_m01kn",
+        "cus_dfcupofinal_S6_1zsji5",
+        "cus_dfcupofinal_S3_1zsji5",
+        "cus_dfcupofinal_1zsji5",
+        "cus_dfcupofinal_S4_1zsji5",
+        "cus_dfcupofinal_S1_1zsji5",
+        "cus_dfcupofinal_S2_1zsji5",
+        "cus_dfcupofinal_m01kn",
+        "cus_DFProcesoContratacion_43zzy2",
+        "cus_dfprocesocuantiaindeter_43zzy2",
+        "cus_Indiquelacausalterminado_m01kn",
+        "cus_Indiquelacausaldesierto_m01kn",
+        "cus_Indiqueladecision_m01kn",
+        "cus_Observacionesadicionales_m01kn",
+        "cus_customerResourcesIndiquelacausaldesi_30acfm.VUF_1string",
+        "cus_customerResourcesIndiquelacausalterm_3qb084.VUF_10string",
+        "LoadCreateTime",
+        "LoadUpdateTime",
+        "ParentAgreement",
+        "InternalId",
+        "Title",
+        "DocumentVersion",
+        "SourceSystem",
+        "IsTestForm",
+        "AclId",
+        "FlexTypeId",
+        "TimeCreated",
+        "TimeUpdated"
+    ],
+    "filterExpressions": [
+        {
+            "name": "updatedDateTo",
+            "field": "TimeUpdated",
+            "op": "<=",
+            "defaultValue": null
+        },
+        {
+            "name": "updatedDateFrom",
+            "field": "TimeUpdated",
+            "op": ">=",
+            "defaultValue": null
+        }
+    ]
+}

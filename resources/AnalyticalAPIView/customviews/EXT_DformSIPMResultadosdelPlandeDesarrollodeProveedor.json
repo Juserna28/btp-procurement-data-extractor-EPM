@@ -1,0 +1,62 @@
+{
+    "status": "published",
+    "documentType": "ContractsDForm_vrealm_50251_SIPMResultadosdelPlandeDesarrollodeProveedorFact",
+    "selectAttributes": [
+        "cus_sipmresplancategoria_m01kn",
+        "cus_sipmresplanvalora_m01kn",
+        "cus_sipmresplanid_m01kn",
+        "cus_ResultadoobtenidoGrupoEPM_m01kn",
+        "cus_ResultadoobtenidoProveedor_m01kn",
+        "cus_sipmresplandiagn_m01kn",
+        "cus_sipmresplanconcl_m01kn",
+        "cus_ObservacionesProveedor_m01kn",
+        "cus_ObservacionesGrupoEPM_m01kn",
+        "cus_sipmresplanvalefiprov_S6_1zsji5",
+        "cus_sipmresplanvalefiprov_S3_1zsji5",
+        "cus_sipmresplanvalefiprov_1zsji5",
+        "cus_sipmresplanvalefiprov_S4_1zsji5",
+        "cus_sipmresplanvalefiprov_S1_1zsji5",
+        "cus_sipmresplanvalefiprov_S2_1zsji5",
+        "cus_sipmresplanvalefiprov_m01kn",
+        "cus_sipmresplanvalefiepm_S6_1zsji5",
+        "cus_sipmresplanvalefiepm_S3_1zsji5",
+        "cus_sipmresplanvalefiepm_1zsji5",
+        "cus_sipmresplanvalefiepm_S4_1zsji5",
+        "cus_sipmresplanvalefiepm_S1_1zsji5",
+        "cus_sipmresplanvalefiepm_S2_1zsji5",
+        "cus_sipmresplanvalefiepm_m01kn",
+        "cus_sipmresplanfeini_33eyue",
+        "cus_sipmresplanfefin_33eyue",
+        "cus_sipmresplaneficepm_43zzy2",
+        "cus_sipmresplaneficprov_43zzy2",
+        "cus_sipmresplancrit_30acfm.VUF_1string",
+        "cus_sipmresplanobj_3qb084.VUF_10string",
+        "cus_sipmresplancate_3xxp4o.VUF_Commodity1",
+        "cus_sipmresplanprov_fmu1v.VUF_Supplier1",
+        "LoadCreateTime",
+        "LoadUpdateTime",
+        "ParentAgreement",
+        "InternalId",
+        "Title",
+        "SourceSystem",
+        "IsTestForm",
+        "AclId",
+        "FlexTypeId",
+        "TimeCreated",
+        "TimeUpdated"
+    ],
+    "filterExpressions": [
+        {
+            "name": "updatedDateTo",
+            "field": "TimeUpdated",
+            "op": "<=",
+            "defaultValue": null
+        },
+        {
+            "name": "updatedDateFrom",
+            "field": "TimeUpdated",
+            "op": ">=",
+            "defaultValue": null
+        }
+    ]
+}

@@ -1,0 +1,46 @@
+{
+    "status": "published",
+    "documentType": "ContractsDFormDetail_vrealm_50251_CONTRACTRegistrodemedidasdeapremioDetailsFact",
+    "selectAttributes": [
+        "cus_cmmetipomed_p58et",
+        "cus_cmmedradicadomul_p58et",
+        "cus_cmmencont_p58et",
+        "cus_cmmerad_p58et",
+        "cus_cmmedesc_p58et",
+        "cus_cmmeobs_p58et",
+        "cus_cmmevalor_S6_22xqcb",
+        "cus_cmmevalor_S3_22xqcb",
+        "cus_cmmevalor_22xqcb",
+        "cus_cmmevalor_S4_22xqcb",
+        "cus_cmmevalor_S1_22xqcb",
+        "cus_cmmevalor_S2_22xqcb",
+        "cus_cmmevalor_p58et",
+        "cus_cmmefecha_36k5ok",
+        "cus_cmmeprov_3q5d1f",
+        "cus_TipodeRegistro_p58et",
+        "LoadCreateTime",
+        "LoadUpdateTime",
+        "ParentAgreement",
+        "DFormId",
+        "DetailLineNumber",
+        "SourceSystem",
+        "AclId",
+        "FlexTypeId",
+        "TimeCreated",
+        "TimeUpdated"
+    ],
+    "filterExpressions": [
+        {
+            "name": "updatedDateTo",
+            "field": "TimeUpdated",
+            "op": "<=",
+            "defaultValue": null
+        },
+        {
+            "name": "updatedDateFrom",
+            "field": "TimeUpdated",
+            "op": ">=",
+            "defaultValue": null
+        }
+    ]
+}

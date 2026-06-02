@@ -1,0 +1,33 @@
+{
+    "status": "published",
+    "documentType": "ContractsDFormDetail_vrealm_50251_FICHAPROCESODECONTRATACINDetailsFact",
+    "selectAttributes": [
+        "cus_Nombreadenda_p58et",
+        "cus_Causal_p58et",
+        "cus_Observaciones_p58et",
+        "LoadCreateTime",
+        "LoadUpdateTime",
+        "ParentAgreement",
+        "DFormId",
+        "DetailLineNumber",
+        "SourceSystem",
+        "AclId",
+        "FlexTypeId",
+        "TimeCreated",
+        "TimeUpdated"
+    ],
+    "filterExpressions": [
+        {
+            "name": "updatedDateTo",
+            "field": "TimeUpdated",
+            "op": "<=",
+            "defaultValue": null
+        },
+        {
+            "name": "updatedDateFrom",
+            "field": "TimeUpdated",
+            "op": ">=",
+            "defaultValue": null
+        }
+    ]
+}

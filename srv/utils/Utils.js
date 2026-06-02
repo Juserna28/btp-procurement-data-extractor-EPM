@@ -12,15 +12,15 @@ const sCutoffIndicator = "\u2026";
 
 
 function getJobFilterCriteria(sRealm, sType) {
-    return new Promise(async (resolve,reject)=>{
-        try{
-            logger.info(`Checking previous  Jobs for Extractions for ${sType} in realm ${sRealm}`);
+    return new Promise(async (resolve, reject) => {
+        try {
+            logger.info(`Checking previous Jobs for Extractions for ${sType} in realm ${sRealm}`);
             let oLastExecutionRun = await SELECT.one.from("sap.ariba.Jobs")
                 .where({
                     "Realm": sRealm,
-                    and : { "type": sType }
+                    and: { "type": sType }
                 })
-                .orderBy ( {createdDate: 'desc'} ) ;
+                .orderBy({ createdDate: 'desc' });
 
             // 1. If no operation at all -> start fresh extraction
             // 2. If completed operation -> start from last extraction
@@ -29,18 +29,18 @@ function getJobFilterCriteria(sRealm, sType) {
 
             let oDeltaRange;
             // found previous run, check for 2-4
-            if(oLastExecutionRun && oLastExecutionRun.length === undefined) {
+            if (oLastExecutionRun && oLastExecutionRun.length === undefined) {
                 // 2. -> start from last extraction
                 if (oLastExecutionRun.importStatus === "processed") {
                     oDeltaRange = {
                         type: "next",
                         updatedDateTo: moment.utc().format(),
-                        updatedDateFrom : oLastExecutionRun.createdAt,
+                        updatedDateFrom: oLastExecutionRun.createdAt,
                         initialLoad: false,
                     }
                 }
                 // 4. -> re-try the failing page
-                else if (oLastExecutionRun.importStatus === "error")  {
+                else if (oLastExecutionRun.importStatus === "error") {
                     oDeltaRange = {
                         type: "continue",
                         pageToken: oLastExecutionRun.pageToken,
@@ -66,7 +66,7 @@ function getJobFilterCriteria(sRealm, sType) {
 
             resolve(oDeltaRange);
 
-        } catch(e) {
+        } catch (e) {
             logger.error(`Error while checking previous execution runs for type ${sType} in realm ${sRealm} details: ${e}`);
             reject(e);
         }
@@ -74,52 +74,55 @@ function getJobFilterCriteria(sRealm, sType) {
 }
 
 
-async function executeRequest(oRequestConfig,retries){
+async function executeRequest(oRequestConfig, retries) {
     //Execute Request with Retries
-    return new Promise(async (resolve,reject)=>{    
-        
-        try{
+    return new Promise(async (resolve, reject) => {
+
+        try {
             let res = await axios.request(oRequestConfig);
             resolve(res);
         }
-        catch(error){
+        catch (error) {
             //Rate limit hit            
-            if (error && error.response && error.response.status == 429){
+            if (error && error.response && error.response.status == 429) {
                 //check appropriate rate limit
                 let delay;
-                if(error.response.headers["x-ratelimit-remaining-minute"] !='0' && error.response.headers["x-ratelimit-remaining-hour"] !='0' && 
-                error.response.headers["x-ratelimit-remaining-day"] !='0'){delay=1000;}
-                else if(error.response.headers["x-ratelimit-remaining-hour"] !='0' && error.response.headers["x-ratelimit-remaining-day"] !='0'){delay=60000;}
-                else if(error.response.headers["x-ratelimit-remaining-day"] !='0'){delay=3600000;}
-                
+                if (error.response.headers["x-ratelimit-remaining-minute"] != '0' && error.response.headers["x-ratelimit-remaining-hour"] != '0' &&
+                    error.response.headers["x-ratelimit-remaining-day"] != '0') { delay = 1000; }
+                else if (error.response.headers["x-ratelimit-remaining-hour"] != '0' && error.response.headers["x-ratelimit-remaining-day"] != '0') { delay = 60000; }
+                else if (error.response.headers["x-ratelimit-remaining-day"] != '0') { delay = 3600000; }
 
-                if(retries-1>0 && delay){       
+
+                if (retries - 1 > 0 && delay) {
                     //delay until next execution
-                    logger.warn(`API Rate limit error - retry in ${delay} ms. remaining retries : ${retries-1} details: ${error}`); 
+                    logger.warn(`API Rate limit error - retry in ${delay} ms, remaining retries: ${retries - 1}. ${error.message}`);
                     //debug
                     //delay=3000;
 
                     await new Promise(resolve => setTimeout(resolve, delay));
-                    try{
+                    try {
                         //recursive re-try                        
-                        var res = await executeRequest(oRequestConfig,retries-1);                        
+                        var res = await executeRequest(oRequestConfig, retries - 1);
                         resolve(res);
-                    }catch(e){
+                    } catch (e) {
                         //What happens there???
                         reject(e);
-                    }                    
-                } else{
+                    }
+                } else {
                     logger.error(`API Rate limit error - no remaining retries, call permanently failed `);
-                    
+
                     reject(error);
                 }
-            }else{
+            } else {
                 //Generic API error
-                logger.error(`Error while processing API call : ${error} `);
+                const url = oRequestConfig && (oRequestConfig.baseURL || oRequestConfig.url);
+                const status = error.response && error.response.status;
+                const responseBody = error.response && error.response.data && JSON.stringify(error.response.data);
+                logger.error(`Error while calling Ariba API${url ? ` [${oRequestConfig.method?.toUpperCase()} ${url}]` : ''} : HTTP ${status || 'N/A'} - ${error.message}${responseBody ? ` | Response: ${responseBody}` : ''}`);
                 reject(error);
             }
         }
-           
+
     });
 }
 
@@ -130,38 +133,38 @@ function truncateData(aTruncatingProperties, oData, n) {
     return oData;
 };
 
-function cleanData (aCleaningProperties, oData, realm) {
+function cleanData(aCleaningProperties, oData, realm) {
     aCleaningProperties && aCleaningProperties.forEach(function (oCleaningProperty) {
         let cleanedValue = oData[oCleaningProperty] && Math.round((parseFloat(oData[oCleaningProperty]) + Number.EPSILON) * 1000) / 1000;
-        oData[oCleaningProperty] = cleanedValue > 999999999999999? 999999999999999 : cleanedValue; //Double overflow check
+        oData[oCleaningProperty] = cleanedValue > 999999999999999 ? 999999999999999 : cleanedValue; //Double overflow check
     });
     oData.Realm = realm;
     return oData;
 }
 
-function processCustomFields(oDataCleansed){
-    let iString =1;
+function processCustomFields(oDataCleansed) {
+    let iString = 1;
     let iVector = 1;
-    let iVectorItem=1;
+    let iVectorItem = 1;
     for (const [key, value] of Object.entries(oDataCleansed)) {
-        if(key.startsWith("cus_") || key.startsWith("arb_")){
-          
+        if (key.startsWith("cus_") || key.startsWith("arb_")) {
+
             //vector field 
-            if(Array.isArray(value)){                
+            if (Array.isArray(value)) {
                 value.forEach(e => {
                     for (const [k, v] of Object.entries(e)) {
-                        let sV = (v && v.Day)?v.Day:(v==null)?null:v.toString();
-                        oDataCleansed[`CusFieldVector${iVector}_${iVectorItem++}`] = {value:sV,name:`${key}_${k}`};
-                        if(iVectorItem==5){break};//Limitation to 5 entries per vector (records x fields)
+                        let sV = (v && v.Day) ? v.Day : (v == null) ? null : v.toString();
+                        oDataCleansed[`CusFieldVector${iVector}_${iVectorItem++}`] = { value: sV, name: `${key}_${k}` };
+                        if (iVectorItem == 5) { break };//Limitation to 5 entries per vector (records x fields)
                     }
-                });                
+                });
                 iVector++;
-                iVectorItem=1;
-            }else{
-            //value/pair fields
-                let sValue = (value && value.Day)?value.Day:(value==null)?null:value.toString();            
-                oDataCleansed[`CusField${iString++}`] = {value: sValue , name:key};
-                
+                iVectorItem = 1;
+            } else {
+                //value/pair fields
+                let sValue = (value && value.Day) ? value.Day : (value == null) ? null : value.toString();
+                oDataCleansed[`CusField${iString++}`] = { value: sValue, name: key };
+
             }
             delete oDataCleansed[key];
         }
@@ -169,77 +172,101 @@ function processCustomFields(oDataCleansed){
     return oDataCleansed;
 }
 
-function deleteCustomFields(oDataCleansed){
+function deleteCustomFields(oDataCleansed) {
 
-    
+
     //Flatten structure
-    let flat = flatten(oDataCleansed,{delimiter:'>',safe:false});
+    let flat = flatten(oDataCleansed, { delimiter: '>', safe: false });
 
     for (const [key, value] of Object.entries(flat)) {
-        if(key.includes("cus_")){
-              delete flat[key];            
+        if (key.includes("cus_")) {
+            delete flat[key];
         }
     }
 
     //Unflat structure
-    let unflat = unflatten(flat, { delimiter : ">", safe: false });
+    let unflat = unflatten(flat, { delimiter: ">", safe: false });
 
     return unflat;
-   
+
 }
 
 // overcoming issue https://github.tools.sap/cap/issues/issues/14004
-function flattenTypes (oDataCleansed, isArray) {
+function flattenTypes(oDataCleansed, isArray) {
     var toReturn = {};
 
     for (var i in oDataCleansed) {
         if (!oDataCleansed.hasOwnProperty(i)) continue;
 
-        if ((typeof oDataCleansed[i]) == 'object' && oDataCleansed[i] !== null && !Array.isArray(oDataCleansed[i]) ){
+        if ((typeof oDataCleansed[i]) == 'object' && oDataCleansed[i] !== null && !Array.isArray(oDataCleansed[i])) {
             var flatObject = flattenTypes(oDataCleansed[i]);
             for (var x in flatObject) {
                 if (!flatObject.hasOwnProperty(x)) continue;
                 if (isArray) {
-                	toReturn[i + '<' + x] = flatObject[x];
+                    toReturn[i + '<' + x] = flatObject[x];
                 } else {
-                	toReturn[i + '_' + x] = flatObject[x];
+                    toReturn[i + '_' + x] = flatObject[x];
                 }
             }
         } else {
-        	if (!!Array.isArray(oDataCleansed[i]) ){
+            if (!!Array.isArray(oDataCleansed[i])) {
 
-            var flatObject = flattenTypes(oDataCleansed[i], true);
-            for (var x in flatObject) {
-                toReturn[i + '<' + x] = flatObject[x];
-            }
-          } else {
-            toReturn[i] = oDataCleansed[i];
+                var flatObject = flattenTypes(oDataCleansed[i], true);
+                for (var x in flatObject) {
+                    toReturn[i + '<' + x] = flatObject[x];
+                }
+            } else {
+                toReturn[i] = oDataCleansed[i];
             }
         }
     }
-    return unflatten(toReturn,{delimiter:'<'});
+    return unflatten(toReturn, { delimiter: '<' });
 }
 
-function removeNullValues(oDataCleansed){
+function removeNullValues(oDataCleansed) {
 
     //Flatten structure
-    let flat = flatten(oDataCleansed,{delimiter:'>',safe:false});
+    let flat = flatten(oDataCleansed, { delimiter: '>', safe: false });
 
-    var keys = Object.keys( flat );
+    var keys = Object.keys(flat);
 
-    for( var i = 0,length = keys.length; i < length; i++ ) {
-        if(flat[ keys[ i ] ] == null)    {
+    for (var i = 0, length = keys.length; i < length; i++) {
+        if (flat[keys[i]] == null) {
             //Remove the null element from the JSON
-            delete flat[keys[ i ]];
+            delete flat[keys[i]];
         }
     }
 
     //Unflat structure
-    let unflat = unflatten(flat, { delimiter : ">", safe: false });
+    let unflat = unflatten(flat, { delimiter: ">", safe: false });
 
     return unflat;
 }
 
+
+function deduplicateKeys(oData) {
+    var seen = {};
+    var result = {};
+    for (var key of Object.keys(oData)) {
+        var upper = key.toUpperCase();
+        if (seen[upper]) {
+            seen[upper]++;
+            result[key + '_' + seen[upper]] = oData[key];
+        } else {
+            seen[upper] = 1;
+            result[key] = oData[key];
+        }
+    }
+    return result;
+}
+
+function normalizeToArray(value) {
+    if (!value) {
+        return [];
+    }
+
+    return Array.isArray(value) ? value : [value];
+}
 
 module.exports = {
     executeRequest,
@@ -249,5 +276,7 @@ module.exports = {
     removeNullValues,
     deleteCustomFields,
     getJobFilterCriteria,
-    flattenTypes
+    flattenTypes,
+    deduplicateKeys,
+    normalizeToArray
 }

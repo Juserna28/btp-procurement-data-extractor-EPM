@@ -1,0 +1,45 @@
+{
+    "status": "published",
+    "documentType": "ContractsDForm_vrealm_50251_HomologacinProveedoresFact",
+    "selectAttributes": [
+        "AclId",
+        "cus_DFArticulos_m01kn",
+        "cus_DFArticulos2_4f9nvq.VUF_1flexmasterdata",
+        "cus_DFFechaActualizacion_33eyue",
+        "cus_DFIDLista_m01kn",
+        "cus_Familia_m01kn",
+        "cus_FechaVigencia_33eyue",
+        "cus_FMDCategoria_m01kn",
+        "cus_Marca_m01kn",
+        "cus_NombreLista_m01kn",
+        "cus_Requisitos_30acfm.VUF_1string",
+        "cus_Subcategoria1_m01kn",
+        "cus_Subcategoria2_m01kn",
+        "cus_Subcatgoria3_m01kn",
+        "DocumentVersion",
+        "FlexTypeId",
+        "InternalId",
+        "IsTestForm",
+        "LoadCreateTime",
+        "LoadUpdateTime",
+        "ParentAgreement",
+        "SourceSystem",
+        "TimeCreated",
+        "TimeUpdated",
+        "Title"
+    ],
+    "filterExpressions": [
+        {
+            "name": "updatedDateTo",
+            "field": "TimeUpdated",
+            "op": "<=",
+            "defaultValue": null
+        },
+        {
+            "name": "updatedDateFrom",
+            "field": "TimeUpdated",
+            "op": ">=",
+            "defaultValue": null
+        }
+    ]
+}

@@ -1,0 +1,36 @@
+{
+    "status": "published",
+    "documentType": "ContractsDFormDetail_vrealm_50251_CONTRACTCondicionesparaElaborarlaSolicituddeOfertaDetailsFact",
+    "selectAttributes": [
+        "cus_cmcondanos_34ofhb",
+        "cus_TiempodeDedicacion_p58et",
+        "cus_cmcondcargo_p58et",
+        "cus_cmcondexperiencia_p58et",
+        "cus_cmcondtitulo_p58et",
+        "cus_cmcondtiempo_22xqcb",
+        "LoadCreateTime",
+        "LoadUpdateTime",
+        "ParentAgreement",
+        "DFormId",
+        "DetailLineNumber",
+        "SourceSystem",
+        "AclId",
+        "FlexTypeId",
+        "TimeCreated",
+        "TimeUpdated"
+    ],
+    "filterExpressions": [
+        {
+            "name": "updatedDateTo",
+            "field": "TimeUpdated",
+            "op": "<=",
+            "defaultValue": null
+        },
+        {
+            "name": "updatedDateFrom",
+            "field": "TimeUpdated",
+            "op": ">=",
+            "defaultValue": null
+        }
+    ]
+}
