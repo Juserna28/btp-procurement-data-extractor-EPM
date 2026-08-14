@@ -21,8 +21,10 @@
         "uuid": "^11.1.1"
     },
     "devDependencies": {
-        "@cap-js/sqlite": "^1",
-        "@sap/cds-dk": "^8.9.19"
+        "@cap-js/sqlite": "^1.11.1",
+        "@sap/cds-dk": "^8.9.19",
+        "cross-env": "^7.0.3",
+        "jest": "^29.7.0"
     },
     "cds": {
         "features": {
@@ -54,6 +56,17 @@
         "requires": {
             "db": "hana",
             "auth": "xsuaa"
+        },
+        "[test]": {
+            "requires": {
+                "db": {
+                    "kind": "sqlite",
+                    "credentials": {
+                        "url": ":memory:"
+                    }
+                },
+                "auth": "dummy"
+            }
         }
     },
     "scripts": {
@@ -61,6 +74,22 @@
         "debug": "node --inspect node_modules/@sap/cds/bin/cds-serve",
         "mta:package": "cds build && mbt build --mtar mta-btp-procurement-data-extractor --platform cf",
         "mta:deploy": "cf deploy mta_archives/mta-btp-procurement-data-extractor.mtar -f",
-        "mta:package:deploy": "npm run mta:package && npm run mta:deploy"
+        "mta:package:deploy": "npm run mta:package && npm run mta:deploy",
+        "test": "cross-env NODE_ENV=test jest --runInBand",
+        "test:unit": "cross-env NODE_ENV=test jest test/unit --runInBand",
+        "test:integration": "cross-env NODE_ENV=test jest test/integration --runInBand",
+        "test:jobs": "cross-env NODE_ENV=test jest test/jobs --runInBand",
+        "test:service": "cross-env NODE_ENV=test jest test/service --runInBand"
+    },
+    "jest": {
+        "testEnvironment": "node",
+        "testMatch": [
+            "**/test/**/*.test.js"
+        ],
+        "testTimeout": 60000,
+        "forceExit": true
+    },
+    "allowScripts": {
+        "better-sqlite3@11.10.0": true
     }
 }
